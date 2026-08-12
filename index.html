@@ -7,12 +7,12 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     
-    <title>森衣好 - 專屬型錄</title>
-    <meta name="description" content="✨ 歡迎光臨 森衣好！週週上架百搭顯瘦新款，S~3XL都能找到命定款。點擊查看豬小編最新實穿，專屬VIP快速看款下單！">
-    <meta property="og:title" content="森衣好 - 專屬VIP型錄">
-    <meta property="og:description" content="✨ 歡迎光臨 森衣好！週週上架百搭顯瘦新款，S~3XL都能找到命定款。點擊查看豬小編最新實穿，專屬VIP快速看款下單！">
+    <title>200%森衣好 - 專屬型錄</title>
+    <meta name="description" content="✨ 歡迎光臨 200%森衣好！週週上架百搭顯瘦新款，S~3XL都能找到命定款。專屬VIP快速看款下單！">
+    <meta property="og:title" content="200%森衣好 - 專屬VIP型錄">
+    <meta property="og:description" content="✨ 歡迎光臨 200%森衣好！週週上架百搭顯瘦新款，S~3XL都能找到命定款。專屬VIP快速看款下單！">
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="森衣好">
+    <meta property="og:site_name" content="200%森衣好">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -30,7 +30,7 @@
         .animate-bounce-x { animation: bounce-x 1s infinite; }
         .phrase-scroll { overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 6px; }
         .phrase-scroll::-webkit-scrollbar { display: none; }
-        @keyframes highlight-pulse { 0% { box-shadow: 0 0 0 0 rgba(2fb, 113, 133, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(2fb, 113, 133, 0); } 100% { box-shadow: 0 0 0 0 rgba(2fb, 113, 133, 0); } }
+        @keyframes highlight-pulse { 0% { box-shadow: 0 0 0 0 rgba(251, 113, 133, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(251, 113, 133, 0); } 100% { box-shadow: 0 0 0 0 rgba(251, 113, 133, 0); } }
         .target-highlight { animation: highlight-pulse 2s ease-out 3; border: 2px solid #fb7185; }
         .img-fade-transition { transition: opacity 0.4s ease-in-out; }
     </style>
@@ -56,7 +56,7 @@
             <div class="text-gray-600 mb-6 leading-relaxed font-medium bg-gray-50 p-4 rounded-xl border border-gray-100">
                 正在為您打開 LINE...<br>
                 請在對話框 <strong class="text-rose-500 text-lg">長按 ➡️ 貼上</strong><br>
-                就可以傳送給豬小編囉！
+                就可以傳送給我們囉！
             </div>
             <div class="w-full bg-gray-200 h-2 rounded-full overflow-hidden shadow-inner">
                 <div id="lineProgressBar" class="bg-[#06C755] h-full w-0 transition-all duration-[3800ms] ease-linear"></div>
@@ -89,15 +89,20 @@
                 <div><label class="block text-sm font-bold text-gray-700 mb-1">價格</label><input type="number" id="editPrice" class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-500 outline-none"></div>
                 <div>
                     <label class="block text-sm font-bold text-gray-700 mb-1">分類</label>
-                    <select id="editCategory" class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-500 outline-none">
+                    <select id="editCategory" class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-500 outline-none" onchange="toggleEditPreorderDate(this.value)">
+                        <option value="preorder" class="font-bold text-red-500">⏰ 預購專區</option>
                         <option value="top">上衣</option><option value="bottom">下身</option><option value="dress">洋裝/套裝</option><option value="outer">外套</option><option value="acc">包包/配件</option>
                     </select>
+                </div>
+                <div id="editPreorderDateContainer" class="hidden">
+                    <label class="block text-sm font-bold text-red-600 mb-1">📅 結單日期 (預購必填)</label>
+                    <input type="date" id="editPreorderDate" class="w-full border border-red-300 bg-red-50 rounded-lg p-2 focus:ring-2 focus:ring-red-500 outline-none">
                 </div>
                 <div><label class="block text-sm font-bold text-gray-700 mb-1">尺寸/材質說明</label><input type="text" id="editMeasurements" class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-500 outline-none"></div>
                 <div><label class="block text-sm font-bold text-gray-700 mb-1">詳細介紹</label><textarea id="editDesc" rows="3" class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-500 outline-none"></textarea></div>
                 <div class="flex items-center gap-2 bg-pink-50 p-2 rounded-lg border border-pink-200">
                     <input type="checkbox" id="editShowModelInfo" class="w-4 h-4 text-pink-600 rounded focus:ring-pink-500 cursor-pointer">
-                    <label for="editShowModelInfo" class="text-sm font-bold text-pink-800 cursor-pointer">顯示「豬小編實穿參考」</label>
+                    <label for="editShowModelInfo" class="text-sm font-bold text-pink-800 cursor-pointer">顯示「實穿參考」</label>
                 </div>
             </div>
             <div class="flex justify-end gap-3 mt-6">
@@ -112,7 +117,7 @@
         <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
             <div class="text-white font-bold flex items-center gap-2"><i class="fa-solid fa-user-shield text-[#06C755]"></i> 管理模式</div>
             <div class="flex bg-gray-700 rounded-full p-1">
-                <button id="btnAdmin" onclick="switchView('admin')" class="px-4 py-2 rounded-full text-sm font-bold transition-all bg-indigo-600 text-white shadow-sm flex items-center gap-1"><i class="fa-solid fa-box-open"></i> 豬小編後台</button>
+                <button id="btnAdmin" onclick="switchView('admin')" class="px-4 py-2 rounded-full text-sm font-bold transition-all bg-indigo-600 text-white shadow-sm flex items-center gap-1"><i class="fa-solid fa-box-open"></i> 店家後台</button>
                 <button id="btnCustomer" onclick="switchView('customer')" class="px-4 py-2 rounded-full text-sm font-bold transition-all bg-transparent text-gray-300 hover:text-white flex items-center gap-1"><i class="fa-solid fa-mobile-screen"></i> 預覽</button>
             </div>
         </div>
@@ -129,7 +134,7 @@
             <div class="bg-white shadow-sm sticky top-0 z-40">
                 <div class="px-4 py-3 flex justify-between items-center border-b border-gray-100">
                     <div class="font-bold text-xl text-gray-800 flex items-center gap-2 tracking-wide">
-                        <i class="fa-solid fa-store text-indigo-600"></i> <span id="customerShopName">森衣好</span>
+                        <i class="fa-solid fa-store text-indigo-600"></i> <span id="customerShopName">200%森衣好</span>
                     </div>
                     <div class="flex gap-4 text-xl text-gray-400 items-center">
                         <button onclick="openLine()" id="iconLine" class="text-[#06C755] hover:opacity-80 transition hidden"><i class="fa-brands fa-line"></i></button>
@@ -144,7 +149,7 @@
                     <div class="bg-gradient-to-r from-blue-600 to-blue-500 text-white px-4 py-2.5 flex items-center justify-between shadow-sm active:bg-blue-700 transition">
                         <div class="flex items-center gap-2">
                             <div class="bg-white text-blue-600 rounded-full w-6 h-6 flex items-center justify-center text-sm"><i class="fa-brands fa-facebook-f"></i></div>
-                            <span class="text-sm font-bold tracking-wide">點我加入FB社團，看豬小編最新直播！</span>
+                            <span class="text-sm font-bold tracking-wide">點我加入FB社團，看最新實穿！</span>
                         </div>
                         <i class="fa-solid fa-chevron-right text-sm animate-bounce-x"></i>
                     </div>
@@ -156,8 +161,8 @@
                     </div>
                     <div class="flex-1 overflow-hidden h-full relative">
                         <div id="newsTicker" class="absolute w-full flex flex-col transition-transform duration-500 text-xs font-bold tracking-wide">
-                            <div class="h-10 flex items-center text-rose-600 cursor-pointer hover:underline" onclick="openLine()">📢 歡慶新品上架！首購現折50元快找豬小編領取！</div>
-                            <div class="h-10 flex items-center text-blue-600 cursor-pointer hover:underline" onclick="openFb()">👗 不定期FB粉專開直播，看豬小編實穿再送精美小禮物！</div>
+                            <div class="h-10 flex items-center text-rose-600 cursor-pointer hover:underline" onclick="openLine()">📢 歡慶新品上架！首購現折50元快來領取！</div>
+                            <div class="h-10 flex items-center text-blue-600 cursor-pointer hover:underline" onclick="openFb()">👗 不定期FB粉專開直播，看實穿再送精美小禮物！</div>
                             <div class="h-10 flex items-center text-gray-700">📦 7-11取貨貨到付款，運費+60，滿千免運</div>
                         </div>
                     </div>
@@ -171,25 +176,36 @@
                         <button onclick="clearSearch()" id="clearSearchBtn" class="hidden text-gray-400 hover:text-gray-600 transition p-1"><i class="fa-solid fa-circle-xmark"></i></button>
                     </div>
 
-                    <!-- 🌟 新增：前台熱搜標籤顯示區 -->
+                    <!-- 🌟 前台熱搜標籤顯示區 -->
                     <div id="customerHotTagsContainer" class="hidden flex overflow-x-auto hide-scrollbar gap-2 mt-2 mb-2 pb-1">
                         <div id="customerHotTagsList" class="flex gap-2"></div>
                     </div>
 
-                    <div class="flex overflow-x-auto hide-scrollbar gap-2 pb-2 mt-2" id="categoryFilterBar">
+                    <!-- 🌟 分類篩選列：將「預購專區」移到第二個，確保免滑動就能看到！ -->
+                    <div class="flex overflow-x-auto hide-scrollbar gap-2 pb-2 mt-2 border-b border-gray-100" id="categoryFilterBar">
                         <button onclick="setCategoryFilter('all', this)" class="cat-btn bg-indigo-600 text-white px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap shadow-sm transition">全部</button>
+                        <button onclick="setCategoryFilter('preorder', this)" class="cat-btn bg-red-50 text-red-600 border border-red-200 px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap transition">⏰ 預購專區</button>
                         <button onclick="setCategoryFilter('top', this)" class="cat-btn bg-white text-gray-600 border border-gray-200 px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap transition">上衣</button>
                         <button onclick="setCategoryFilter('bottom', this)" class="cat-btn bg-white text-gray-600 border border-gray-200 px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap transition">下身</button>
                         <button onclick="setCategoryFilter('dress', this)" class="cat-btn bg-white text-gray-600 border border-gray-200 px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap transition">洋裝/套裝</button>
                         <button onclick="setCategoryFilter('outer', this)" class="cat-btn bg-white text-gray-600 border border-gray-200 px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap transition">外套</button>
                         <button onclick="setCategoryFilter('acc', this)" class="cat-btn bg-white text-gray-600 border border-gray-200 px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap transition">配件</button>
                     </div>
+
+                    <!-- 🌟 預購結單日篩選列 (選擇預購專區時才顯示) -->
+                    <div id="preorderDateFilterBarContainer" class="hidden mt-2 pb-2">
+                        <div class="text-xs font-bold text-red-500 mb-1 flex items-center gap-1"><i class="fa-regular fa-calendar-check"></i> 請選擇結單日看款</div>
+                        <div id="preorderDateFilterBar" class="flex overflow-x-auto hide-scrollbar gap-2">
+                            <!-- JS 動態生成 -->
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
             <div id="customerProductList" class="p-4 flex flex-col gap-6">
                 <div class="p-8 text-center text-gray-400 bg-white rounded-2xl border border-dashed border-gray-200 mt-10">
-                    <i class="fa-solid fa-spinner fa-spin text-2xl mb-2"></i><br>豬小編整理中...
+                    <i class="fa-solid fa-spinner fa-spin text-2xl mb-2"></i><br>整理中...
                 </div>
             </div>
             
@@ -199,14 +215,14 @@
         </div>
 
         <!-- ========================================== -->
-        <!-- 模式 A：豬小編全能後台 -->
+        <!-- 模式 A：全能後台 -->
         <!-- ========================================== -->
         <div id="viewAdmin" class="hidden max-w-4xl mx-auto px-4 py-6 space-y-6">
             
             <div class="bg-indigo-50 border border-indigo-200 text-indigo-800 p-4 rounded-xl flex items-start gap-3 shadow-sm">
                 <i class="fa-solid fa-seedling mt-1 text-indigo-600"></i>
                 <div>
-                    <strong class="block mb-1">歡迎回來，豬小編！</strong>
+                    <strong class="block mb-1">歡迎回來！</strong>
                     <p class="text-sm leading-relaxed font-medium">真正改變人生的，從來不是奇蹟，而是日復一日的累積。</p>
                 </div>
             </div>
@@ -214,7 +230,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
                 <h3 class="font-bold text-indigo-800 mb-4 flex items-center gap-2"><i class="fa-solid fa-gear"></i> 店鋪與導流設定</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div><label class="block text-sm font-bold text-gray-700 mb-1">店鋪名稱</label><input type="text" id="inputShopName" value="森衣好" class="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-indigo-500 outline-none"></div>
+                    <div><label class="block text-sm font-bold text-gray-700 mb-1">店鋪名稱</label><input type="text" id="inputShopName" value="200%森衣好" class="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-indigo-500 outline-none" readonly title="店鋪名稱已鎖定"></div>
                     <div><label class="block text-sm font-bold text-gray-700 mb-1">客服 LINE 網址</label><input type="text" id="inputLineLink" placeholder="必填：https://line.me/..." class="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-[#06C755] outline-none"></div>
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-1"><i class="fa-brands fa-facebook text-blue-600"></i> FB 導流橫幅網址 (社團/粉專)</label>
@@ -224,7 +240,6 @@
                     <div><label class="block text-sm font-bold text-gray-700 mb-1"><i class="fa-solid fa-bag-shopping text-orange-500"></i> 蝦皮賣場網址 (選填)</label><input type="text" id="inputShopeeLink" placeholder="https://shopee.tw/..." class="w-full border border-gray-300 rounded-xl p-3 outline-none focus:ring-2 focus:ring-indigo-500"></div>
                 </div>
                 
-                <!-- 🌟 新增：熱搜標籤設定區塊 -->
                 <div class="mt-5 pt-5 border-t border-gray-100">
                     <label class="block text-sm font-bold text-gray-700 mb-2"><i class="fa-solid fa-tags text-rose-500"></i> 🔥 熱搜關鍵字標籤 (前台搜尋框下方顯示)</label>
                     <div id="adminHotTagsList" class="flex flex-wrap gap-2 mb-3"></div>
@@ -263,8 +278,9 @@
                         <div class="flex gap-3">
                             <div class="flex-1">
                                 <label class="block text-sm font-bold text-gray-700 mb-1">分類 <span class="text-red-500">*</span></label>
-                                <select id="inputCategory" class="w-full border border-gray-300 rounded-xl p-2.5 outline-none font-bold text-indigo-700 bg-indigo-50 focus:ring-2 focus:ring-indigo-500">
+                                <select id="inputCategory" class="w-full border border-gray-300 rounded-xl p-2.5 outline-none font-bold text-indigo-700 bg-indigo-50 focus:ring-2 focus:ring-indigo-500" onchange="togglePreorderDate(this.value)">
                                     <option value="top">👚 上衣</option><option value="bottom">👖 下身</option><option value="dress">👗 洋裝/套裝</option><option value="outer">🧥 外套</option><option value="acc">👜 包包/配件</option>
+                                    <option value="preorder" class="text-red-600 font-bold">⏰ 預購專區</option>
                                 </select>
                             </div>
                             <div class="flex-1">
@@ -273,6 +289,12 @@
                                     <option value="new">✨ 最新上架</option><option value="hot">🔥 爆款熱銷</option><option value="pinned">👑 鎮店置頂</option><option value="sale">💸 限時特價</option>
                                 </select>
                             </div>
+                        </div>
+
+                        <!-- 預購結單日 (隱藏/顯示) -->
+                        <div id="preorderDateContainer" class="hidden">
+                            <label class="block text-sm font-bold text-red-600 mb-1">📅 結單日期 (預購專區必填) <span class="text-red-500">*</span></label>
+                            <input type="date" id="inputPreorderDate" class="w-full border border-red-300 bg-red-50 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-red-500 text-red-700 font-bold">
                         </div>
 
                         <div class="flex gap-3">
@@ -360,11 +382,11 @@
                                 <div class="text-xs font-bold text-purple-600 mb-1">🔥 推坑與急迫感 (左右滑動看更多)</div>
                                 <div class="phrase-scroll flex gap-2">
                                     <button type="button" onclick="addPhrase('🔥 正韓連線爆款，實體攤位一上架就立刻被秒殺！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">🔥 正韓連線秒殺款</button>
-                                    <button type="button" onclick="addPhrase('🛍️ 實體顏色真的超美，豬小編自己也偷偷包色了！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">🛍️ 豬小編偷偷包色</button>
+                                    <button type="button" onclick="addPhrase('🛍️ 實體顏色真的超美，我們自己也偷偷包色了！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">🛍️ 實穿自己偷偷包色</button>
                                     <button type="button" onclick="addPhrase('⏳ 廠商斷貨預警，這批現貨賣完真的不知道何時補！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">⏳ 斷貨預警要買要快</button>
                                     <button type="button" onclick="addPhrase('💎 獨家訂製款，外面絕對找不到一模一樣的質感！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">💎 獨家訂製好質感</button>
                                     <button type="button" onclick="addPhrase('💯 買過都說讚的超高回購款，錯過絕對會搥心肝！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">💯 超高回購不買後悔</button>
-                                    <button type="button" onclick="addPhrase('👑 本期鎮店之寶，客人看到實品幾乎都直接打包！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">👑 鎮店之寶直接打包</button>
+                                    <button type="button" onclick="addPhrase('👑 本期鎮店之寶，客人看到實品幾乎直接打包！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">👑 鎮店之寶直接打包</button>
                                     <button type="button" onclick="addPhrase('💸 超佛心甜甜價，這個材質賣這價格真的買到賺到！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">💸 佛心甜甜價買到賺到</button>
                                     <button type="button" onclick="addPhrase('🎁 廠商獨家釋出微量現貨，要搶要快，手慢無喔！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">🎁 限量現貨手慢無</button>
                                     <button type="button" onclick="addPhrase('✨ 質感好到沒話說，收到實品絕對會驚呼太超值！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">✨ 收到實品驚呼超值</button>
@@ -373,7 +395,7 @@
                             </div>
 
                             <div id="customPhraseBox" class="mb-2 hidden">
-                                <div class="text-xs font-bold text-purple-600 mb-1">🌟 豬小編專屬自訂短語</div>
+                                <div class="text-xs font-bold text-purple-600 mb-1">🌟 專屬自訂短語</div>
                                 <div id="customPhraseList" class="phrase-scroll flex gap-2"></div>
                             </div>
 
@@ -388,7 +410,7 @@
                             <textarea id="inputDesc" class="w-full border border-gray-300 rounded-xl p-3 resize-none outline-none focus:ring-2 focus:ring-[#06C755]" rows="4" placeholder="請點選上方短語，或直接在這裡打字喔！"></textarea>
                             <div class="mt-3 bg-pink-50 border border-pink-200 rounded-xl p-3 flex items-center gap-2 cursor-pointer shadow-sm hover:bg-pink-100 transition" onclick="document.getElementById('inputShowModelInfo').click()">
                                 <input type="checkbox" id="inputShowModelInfo" class="w-4 h-4 text-pink-600 rounded focus:ring-pink-500 cursor-pointer pointer-events-none">
-                                <label class="text-sm font-bold text-pink-800 cursor-pointer select-none flex-1 pointer-events-none">☑️ 標示：豬小編實穿參考 (163cm/48kg)</label>
+                                <label class="text-sm font-bold text-pink-800 cursor-pointer select-none flex-1 pointer-events-none">☑️ 標示：實穿參考 (163cm/48kg)</label>
                             </div>
                         </div>
 
@@ -439,9 +461,10 @@
         window.base64ImagesArray = []; 
         window.draftProducts = []; 
         window.currentCategoryFilter = 'all'; 
+        window.currentPreorderDate = 'all'; 
         window.currentSearchQuery = '';       
         window.customPhrases = []; 
-        window.hotTags = []; // 🌟 熱搜標籤資料
+        window.hotTags = []; 
         
         window.currentLineLink = '';
         window.currentFbLink = '';
@@ -475,6 +498,22 @@
             } else {
                 showToast("密碼錯誤！", "error");
                 document.getElementById('adminPasswordInput').value = '';
+            }
+        };
+
+        window.togglePreorderDate = function(val) {
+            if (val === 'preorder') {
+                document.getElementById('preorderDateContainer').classList.remove('hidden');
+            } else {
+                document.getElementById('preorderDateContainer').classList.add('hidden');
+            }
+        };
+
+        window.toggleEditPreorderDate = function(val) {
+            if (val === 'preorder') {
+                document.getElementById('editPreorderDateContainer').classList.remove('hidden');
+            } else {
+                document.getElementById('editPreorderDateContainer').classList.add('hidden');
             }
         };
 
@@ -516,7 +555,6 @@
             } catch (err) { showToast("刪除失敗", "error"); }
         };
 
-        // 🌟 熱搜標籤儲存與刪除邏輯
         window.addHotTag = async function() {
             const input = document.getElementById('inputHotTag');
             const text = input.value.trim();
@@ -557,7 +595,6 @@
             } else { box.classList.add('hidden'); }
         }
 
-        // 🌟 渲染熱搜標籤 UI
         function renderHotTags() {
             const adminList = document.getElementById('adminHotTagsList');
             const customerContainer = document.getElementById('customerHotTagsContainer');
@@ -569,14 +606,12 @@
             if(window.hotTags && window.hotTags.length > 0) {
                 customerContainer.classList.remove('hidden');
                 window.hotTags.forEach((tag, idx) => {
-                    // 後台顯示
                     adminList.innerHTML += `
                         <div class="relative inline-block group flex-shrink-0">
                             <span class="bg-rose-50 border border-rose-200 text-rose-600 px-3 py-1.5 rounded-lg text-sm font-bold shadow-sm cursor-default">#${tag}</span>
                             <button type="button" onclick="deleteHotTag(${idx}, event)" class="absolute -top-2 -right-2 bg-gray-800 text-white w-5 h-5 rounded-full text-[10px] hidden group-hover:flex items-center justify-center hover:bg-red-500 transition shadow-md">&times;</button>
                         </div>
                     `;
-                    // 前台顯示
                     customerList.innerHTML += `
                         <button type="button" onclick="setHotTagSearch('${tag}')" class="bg-rose-50 text-rose-600 border border-rose-200 px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap hover:bg-rose-100 transition shadow-sm">#${tag}</button>
                     `;
@@ -600,7 +635,10 @@
         onSnapshot(settingsRef, (docSnap) => {
             if (docSnap.exists()) {
                 const data = docSnap.data();
-                if(document.getElementById('inputShopName')) document.getElementById('inputShopName').value = data.shopName || '森衣好';
+                
+                // 強制鎖定前台名稱為 200%森衣好，防止資料庫舊設定覆蓋
+                document.getElementById('customerShopName').innerText = '200%森衣好';
+                
                 if(document.getElementById('inputLineLink')) document.getElementById('inputLineLink').value = data.lineLink || '';
                 if(document.getElementById('inputIgLink')) document.getElementById('inputIgLink').value = data.igLink || '';
                 if(document.getElementById('inputFbLink')) document.getElementById('inputFbLink').value = data.fbLink || '';
@@ -611,15 +649,12 @@
 
                 if(data.customPhrases) { window.customPhrases = data.customPhrases; renderCustomPhrases(); }
                 
-                // 🌟 讀取熱搜標籤，如果完全沒設定過，給幾個預設值方便測試
                 if(data.hotTags !== undefined) {
                     window.hotTags = data.hotTags;
                 } else {
                     window.hotTags = ['襯衫領', '圓領', '牛仔長褲', '短褲'];
                 }
                 renderHotTags();
-
-                document.getElementById('customerShopName').innerText = data.shopName || '森衣好';
                 
                 const linkIg = document.getElementById('linkIg');
                 const linkShopee = document.getElementById('linkShopee');
@@ -636,7 +671,7 @@
         window.saveSettings = async function() {
             try {
                 await setDoc(doc(db, 'settings', 'shopInfo'), { 
-                    shopName: document.getElementById('inputShopName').value.trim(), 
+                    shopName: '200%森衣好', // 後台設定也統一儲存新店名
                     lineLink: document.getElementById('inputLineLink').value.trim(),
                     igLink: document.getElementById('inputIgLink').value.trim(),
                     fbLink: document.getElementById('inputFbLink').value.trim(),
@@ -718,9 +753,12 @@
         window.addToDraft = function() {
             const title = document.getElementById('inputTitle').value.trim();
             const price = document.getElementById('inputPrice').value.trim();
+            const category = document.getElementById('inputCategory').value;
+            const preorderDate = document.getElementById('inputPreorderDate').value;
             
             if (window.base64ImagesArray.length === 0) { showToast("請至少上一張照片！", "error"); return; }
             if (!title || !price) { showToast("名稱、價格必填喔！", "error"); return; }
+            if (category === 'preorder' && !preorderDate) { showToast("預購專區請選擇結單日期！", "error"); return; }
 
             let selectedFitTags = [];
             document.querySelectorAll('.active-fit-tag').forEach(btn => selectedFitTags.push(btn.innerText));
@@ -732,7 +770,8 @@
                 price: price,
                 desc: document.getElementById('inputDesc').value.trim(),
                 tag: document.getElementById('inputTag').value,
-                category: document.getElementById('inputCategory').value,
+                category: category,
+                preorderDate: category === 'preorder' ? preorderDate : '',
                 measurements: document.getElementById('inputMeasurements').value.trim(),
                 fitTags: selectedFitTags,
                 status: 'active',
@@ -742,6 +781,7 @@
             document.getElementById('inputTitle').value = ''; document.getElementById('inputPrice').value = ''; 
             document.getElementById('inputDesc').value = ''; document.getElementById('inputVideoLink').value = ''; 
             document.getElementById('inputMeasurements').value = '';
+            document.getElementById('inputPreorderDate').value = '';
             document.getElementById('inputShowModelInfo').checked = false; 
             document.querySelectorAll('.active-fit-tag').forEach(btn => window.toggleFitTag(btn)); 
             window.base64ImagesArray = []; renderPreviewBox(); renderDrafts();
@@ -756,10 +796,11 @@
             document.getElementById('draftCount').innerText = window.draftProducts.length;
             draftList.innerHTML = '';
             window.draftProducts.forEach((p, index) => {
+                let badge = p.category === 'preorder' ? `<span class="bg-red-100 text-red-600 text-[10px] px-1 rounded ml-1">預購</span>` : '';
                 draftList.innerHTML += `
                     <div class="bg-white rounded-xl shadow-sm border border-indigo-100 flex p-2 items-center">
                         <img src="${p.imageUrls[0]}" class="w-12 h-12 object-cover rounded flex-shrink-0">
-                        <div class="px-3 flex-1"><h4 class="font-bold text-sm line-clamp-1">${p.title}</h4><div class="text-rose-600 font-bold text-xs">NT$ ${p.price}</div></div>
+                        <div class="px-3 flex-1"><h4 class="font-bold text-sm line-clamp-1">${p.title} ${badge}</h4><div class="text-rose-600 font-bold text-xs">NT$ ${p.price}</div></div>
                         <button onclick="removeDraft(${index})" class="text-gray-400 hover:text-red-500 p-2"><i class="fa-solid fa-trash"></i></button>
                     </div>`;
             });
@@ -775,7 +816,7 @@
                     await addDoc(collection(db, 'products'), {
                         imageUrls: item.imageUrls, imageUrl: item.imageUrls[0], videoLink: item.videoLink || '',
                         title: item.title, price: item.price, rawText: item.desc, tag: item.tag || 'new', 
-                        category: item.category || 'top', measurements: item.measurements || '', fitTags: item.fitTags || [], status: item.status || 'active',
+                        category: item.category || 'top', preorderDate: item.preorderDate || '', measurements: item.measurements || '', fitTags: item.fitTags || [], status: item.status || 'active',
                         showModelInfo: item.showModelInfo || false, 
                         soldCount: Math.floor(Math.random() * 201) + 300, 
                         createdAt: serverTimestamp()
@@ -804,6 +845,13 @@
             document.getElementById('editTitle').value = p.title;
             document.getElementById('editPrice').value = p.price;
             document.getElementById('editCategory').value = p.category || 'top';
+            if (p.category === 'preorder') {
+                document.getElementById('editPreorderDateContainer').classList.remove('hidden');
+                document.getElementById('editPreorderDate').value = p.preorderDate || '';
+            } else {
+                document.getElementById('editPreorderDateContainer').classList.add('hidden');
+                document.getElementById('editPreorderDate').value = '';
+            }
             document.getElementById('editMeasurements').value = p.measurements || '';
             document.getElementById('editDesc').value = p.rawText || '';
             document.getElementById('editShowModelInfo').checked = p.showModelInfo || false; 
@@ -812,13 +860,19 @@
 
         window.saveEditProduct = async function() {
             const id = document.getElementById('editProdId').value;
+            const category = document.getElementById('editCategory').value;
+            const preorderDate = document.getElementById('editPreorderDate').value;
+            
+            if (category === 'preorder' && !preorderDate) { showToast("預購專區請選擇結單日期！", "error"); return; }
+
             const btn = document.getElementById('btnSaveEdit');
             btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 儲存中...'; btn.disabled = true;
             try {
                 await updateDoc(doc(db, 'products', id), {
                     title: document.getElementById('editTitle').value,
                     price: document.getElementById('editPrice').value,
-                    category: document.getElementById('editCategory').value,
+                    category: category,
+                    preorderDate: category === 'preorder' ? preorderDate : '',
                     measurements: document.getElementById('editMeasurements').value,
                     rawText: document.getElementById('editDesc').value,
                     showModelInfo: document.getElementById('editShowModelInfo').checked 
@@ -831,19 +885,19 @@
 
         window.openLine = function() {
             if(window.currentLineLink) window.location.href = window.currentLineLink;
-            else showToast("豬小編還沒設定 LINE 喔！", "error");
+            else showToast("店家還沒設定 LINE 喔！", "error");
         };
 
         window.openFb = function() {
             if(window.currentFbLink) window.location.href = window.currentFbLink;
-            else showToast("豬小編還沒設定 FB 喔！", "error");
+            else showToast("店家還沒設定 FB 喔！", "error");
         };
 
         window.buyProduct = function(title, price) {
-            if(!window.currentLineLink) { showToast("豬小編還沒設定 LINE 喔！", "error"); return; }
+            if(!window.currentLineLink) { showToast("店家還沒設定 LINE 喔！", "error"); return; }
             
             if(title && price) {
-                const msg = `豬小編你好，我想詢問這款：${title} (NT$${price}) 還有貨嗎？`;
+                const msg = `你好，我想詢問這款：${title} (NT$${price}) 還有貨嗎？`;
                 
                 const tempInput = document.createElement("textarea");
                 tempInput.value = msg;
@@ -883,14 +937,12 @@
             showToast("✨ 已複製直達連結！快去貼給閨蜜看吧", "purple");
         };
 
-        // 🌟 新增：熱搜標籤的點擊行為
         window.setHotTagSearch = function(tag) {
             document.getElementById('searchInput').value = tag;
             window.filterProducts();
-            window.scrollTo({top: 0, behavior: 'smooth'}); // 自動捲到最上面看結果
+            window.scrollTo({top: 0, behavior: 'smooth'}); 
         };
 
-        // 🌟 新增：一鍵清除搜尋
         window.clearSearch = function() {
             document.getElementById('searchInput').value = '';
             window.filterProducts();
@@ -898,13 +950,36 @@
 
         window.setCategoryFilter = function(cat, btn) {
             window.currentCategoryFilter = cat;
+            window.currentPreorderDate = 'all'; // 切換主分類時，重置結單日篩選
+            
             const btns = document.querySelectorAll('.cat-btn');
-            btns.forEach(b => b.className = "cat-btn bg-white text-gray-600 border border-gray-200 px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap transition");
-            btn.className = "cat-btn bg-indigo-600 text-white px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap shadow-sm transition";
+            btns.forEach(b => {
+                if(b.innerText.includes('預購')) {
+                    b.className = "cat-btn bg-red-50 text-red-600 border border-red-200 px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap transition";
+                } else {
+                    b.className = "cat-btn bg-white text-gray-600 border border-gray-200 px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap transition";
+                }
+            });
+            
+            if (cat === 'preorder') {
+                btn.className = "cat-btn bg-red-600 text-white px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap shadow-sm transition";
+                document.getElementById('preorderDateFilterBarContainer').classList.remove('hidden');
+            } else {
+                btn.className = "cat-btn bg-indigo-600 text-white px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap shadow-sm transition";
+                document.getElementById('preorderDateFilterBarContainer').classList.add('hidden');
+            }
+            
             renderProducts();
         };
 
-        // 🌟 更新：搜尋邏輯加上控制「清除按鈕」的顯示隱藏
+        window.setPreorderDateFilter = function(dateStr, btn) {
+            window.currentPreorderDate = dateStr;
+            const btns = document.querySelectorAll('.preorder-date-btn');
+            btns.forEach(b => b.className = "preorder-date-btn bg-white text-red-600 border border-red-200 px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap transition");
+            btn.className = "preorder-date-btn bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap shadow-sm transition";
+            renderProducts();
+        }
+
         window.filterProducts = function() {
             window.currentSearchQuery = document.getElementById('searchInput').value.toLowerCase();
             const clearBtn = document.getElementById('clearSearchBtn');
@@ -930,6 +1005,14 @@
             element.classList.replace('border-transparent', 'border-indigo-500');
         };
 
+        // 格式化日期顯示 (例如 2026-08-15 變成 8/15)
+        function formatPreorderDate(dateString) {
+            if(!dateString) return '';
+            const parts = dateString.split('-');
+            if(parts.length === 3) return `${parseInt(parts[1])}/${parseInt(parts[2])}`;
+            return dateString;
+        }
+
         function renderProducts() {
             const adminList = document.getElementById('adminProductList');
             const customerList = document.getElementById('customerProductList');
@@ -937,6 +1020,7 @@
             if(customerList) customerList.innerHTML = '';
             
             let visibleCount = 0;
+            let preorderDatesSet = new Set(); // 收集預購日期
 
             window.productsData.forEach(p => {
                 const imgArray = p.imageUrls && p.imageUrls.length > 0 ? p.imageUrls : [p.imageUrl];
@@ -946,18 +1030,21 @@
                 let finalSoldCount = p.soldCount || 328;
                 if (finalSoldCount < 300) finalSoldCount = Math.floor(Math.random() * 201) + 300; 
 
+                // --- 後台渲染 ---
                 if(adminList) {
                     let statusHtml = '';
                     if(pStatus === 'active') statusHtml = '<span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded font-bold">上架中</span>';
                     else if(pStatus === 'sold_out') statusHtml = '<span class="text-xs bg-gray-600 text-white px-2 py-1 rounded font-bold">已完售</span>';
                     else if(pStatus === 'hidden') statusHtml = '<span class="text-xs bg-gray-200 text-gray-500 px-2 py-1 rounded font-bold"><i class="fa-solid fa-eye-slash"></i> 隱藏中</span>';
 
+                    let adminPreorderBadge = p.category === 'preorder' ? `<span class="text-[10px] bg-red-100 text-red-600 px-1.5 py-0.5 rounded font-bold ml-2">預購: ${p.preorderDate}</span>` : '';
+
                     adminList.innerHTML += `
                         <div class="bg-white rounded-xl shadow-sm border border-gray-100 flex p-3 gap-3 items-center ${pStatus==='hidden'?'opacity-60':''}">
                             <img src="${coverImage}" class="w-16 h-16 object-cover rounded-lg cursor-pointer" onclick="openImageModal('${coverImage}')">
                             <div class="flex-1">
                                 <div class="flex items-center justify-between mb-1">
-                                    <h4 class="font-bold text-gray-800 text-sm line-clamp-1">${p.title}</h4>
+                                    <h4 class="font-bold text-gray-800 text-sm line-clamp-1">${p.title} ${adminPreorderBadge}</h4>
                                     ${statusHtml}
                                 </div>
                                 <div class="text-rose-600 font-bold text-sm mb-2">NT$ ${p.price}</div>
@@ -971,9 +1058,16 @@
                         </div>`;
                 }
 
+                // --- 收集預購結單日 (前台且未隱藏的商品) ---
+                if (pStatus !== 'hidden' && p.category === 'preorder' && p.preorderDate) {
+                    preorderDatesSet.add(p.preorderDate);
+                }
+
+                // --- 前台渲染 ---
                 if(customerList) {
                     if(pStatus === 'hidden') return;
                     if(window.currentCategoryFilter !== 'all' && p.category !== window.currentCategoryFilter) return;
+                    if(window.currentCategoryFilter === 'preorder' && window.currentPreorderDate !== 'all' && p.preorderDate !== window.currentPreorderDate) return;
                     if(window.currentSearchQuery) {
                         const searchText = p.title.toLowerCase() + (p.rawText ? p.rawText.toLowerCase() : '');
                         if(!searchText.includes(window.currentSearchQuery)) return;
@@ -983,7 +1077,7 @@
 
                     let badgeHtml = '';
                     if (p.tag === 'pinned') badgeHtml = '<div class="absolute top-3 left-3 bg-gradient-to-r from-yellow-400 to-yellow-600 text-gray-900 text-xs font-bold px-3 py-1.5 rounded-full shadow-lg z-10 border border-yellow-300">👑 鎮店推薦必買</div>';
-                    else if (p.tag === 'hot') badgeHtml = `<div class="absolute top-3 left-3 bg-gradient-to-r from-red-500 to-rose-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg z-10 border border-red-400">🔥 姐姐瘋搶 ${finalSoldCount} 件</div>`;
+                    else if (p.tag === 'hot') badgeHtml = `<div class="absolute top-3 left-3 bg-gradient-to-r from-red-500 to-rose-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg z-10 border border-red-400">🔥 大家瘋搶 ${finalSoldCount} 件</div>`;
                     else if (p.tag === 'sale') badgeHtml = '<div class="absolute top-3 left-3 bg-rose-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg z-10 border border-rose-400">💸 限時特價搶購</div>';
                     else badgeHtml = '<div class="absolute top-3 left-3 bg-indigo-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg z-10">✨ 最新上架</div>';
 
@@ -1004,6 +1098,14 @@
                     }
 
                     const videoLinkHtml = p.videoLink ? `<a href="${p.videoLink}" target="_blank" class="inline-block mt-3 bg-blue-50 border border-blue-200 text-blue-600 font-bold text-xs px-4 py-2 rounded-lg hover:bg-blue-100 transition shadow-sm active:scale-95"><i class="fa-brands fa-facebook text-base"></i> 點我看 FB 粉專實穿影片</a>` : '';
+                    
+                    // 🌟 預購商品專屬標示
+                    let preorderAlertHtml = '';
+                    if (p.category === 'preorder' && p.preorderDate) {
+                        const formattedDate = formatPreorderDate(p.preorderDate);
+                        preorderAlertHtml = `<div class="bg-red-50 border border-red-200 text-red-600 font-bold p-2.5 rounded-xl text-sm mb-3 shadow-sm flex items-center gap-2"><i class="fa-regular fa-calendar-xmark text-lg"></i> 預購商品！結單日期為 ${formattedDate}</div>`;
+                    }
+
                     const descHtml = p.rawText ? `<div class="bg-gray-50 p-3 rounded-xl text-sm text-gray-600 mt-3 whitespace-pre-wrap leading-relaxed">${p.rawText}</div>` : '';
                     
                     let measurementsHtml = '';
@@ -1017,7 +1119,7 @@
 
                     const modelInfoHtml = p.showModelInfo ? `
                         <div class="mt-3 bg-pink-50 border border-pink-200 text-pink-800 text-xs font-bold p-3 rounded-xl leading-relaxed shadow-sm">
-                            🙋‍♀️ 豬小編實穿參考：身高 163cm / 體重 48kg / 平常穿 M 號。有任何尺寸問題歡迎傳 LINE 討論喔！
+                            🙋‍♀️ 實穿參考：身高 163cm / 體重 48kg / 平常穿 M 號。有任何問題歡迎傳 LINE 討論喔！
                         </div>
                     ` : '';
 
@@ -1046,7 +1148,8 @@
                                 <div class="flex justify-between items-start gap-2">
                                     <h2 class="text-lg font-bold text-gray-800 leading-tight">${p.title}</h2>
                                 </div>
-                                <div class="text-2xl font-bold ${isSoldOut ? 'text-gray-400' : 'text-rose-600'} mt-1">NT$ ${p.price}</div>
+                                <div class="text-2xl font-bold ${isSoldOut ? 'text-gray-400' : 'text-rose-600'} mt-1 mb-2">NT$ ${p.price}</div>
+                                ${preorderAlertHtml}
                                 ${fitTagsHtml}
                                 ${measurementsHtml}
                                 ${videoLinkHtml}
@@ -1058,9 +1161,33 @@
                 }
             });
 
+            // --- 渲染預購結單日篩選列 ---
+            if (window.currentCategoryFilter === 'preorder') {
+                const dateBar = document.getElementById('preorderDateFilterBar');
+                dateBar.innerHTML = '';
+                
+                const allBtnClass = window.currentPreorderDate === 'all' 
+                    ? "preorder-date-btn bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap shadow-sm transition" 
+                    : "preorder-date-btn bg-white text-red-600 border border-red-200 px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap transition";
+                
+                dateBar.innerHTML += `<button onclick="setPreorderDateFilter('all', this)" class="${allBtnClass}">顯示全部</button>`;
+                
+                // 排序日期 (由近到遠)
+                const sortedDates = Array.from(preorderDatesSet).sort();
+                
+                sortedDates.forEach(dateStr => {
+                    const formatted = formatPreorderDate(dateStr) + ' 結單';
+                    const btnClass = window.currentPreorderDate === dateStr
+                        ? "preorder-date-btn bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap shadow-sm transition" 
+                        : "preorder-date-btn bg-white text-red-600 border border-red-200 px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap transition";
+                    
+                    dateBar.innerHTML += `<button onclick="setPreorderDateFilter('${dateStr}', this)" class="${btnClass}">${formatted}</button>`;
+                });
+            }
+
             if(customerList) {
                 if (window.productsData.length === 0) {
-                    customerList.innerHTML = '<div class="p-8 text-center text-gray-400 bg-white rounded-2xl border border-dashed border-gray-200 mt-10">豬小編準備中...</div>';
+                    customerList.innerHTML = '<div class="p-8 text-center text-gray-400 bg-white rounded-2xl border border-dashed border-gray-200 mt-10">準備中...</div>';
                     document.getElementById('noResultMsg').classList.add('hidden');
                 } else if (visibleCount === 0) {
                     document.getElementById('noResultMsg').classList.remove('hidden');
