@@ -88,10 +88,9 @@
                 <div><label class="block text-sm font-bold text-gray-700 mb-1">商品名稱</label><input type="text" id="editTitle" class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-500 outline-none"></div>
                 <div><label class="block text-sm font-bold text-gray-700 mb-1">價格</label><input type="number" id="editPrice" class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-500 outline-none"></div>
                 <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1">分類</label>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">分類目錄</label>
                     <select id="editCategory" class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-500 outline-none" onchange="toggleEditPreorderDate(this.value)">
-                        <option value="preorder" class="font-bold text-red-500">⏰ 預購專區</option>
-                        <option value="top">上衣</option><option value="bottom">下身</option><option value="dress">洋裝/套裝</option><option value="outer">外套</option><option value="acc">包包/配件</option>
+                        <!-- JS 動態生成 -->
                     </select>
                 </div>
                 <div id="editPreorderDateContainer" class="hidden">
@@ -180,15 +179,9 @@
                         <div id="customerHotTagsList" class="flex gap-2"></div>
                     </div>
 
-                    <!-- 分類篩選列 -->
+                    <!-- 🌟 動態分類篩選列 -->
                     <div class="flex overflow-x-auto hide-scrollbar gap-2 pb-2 mt-2 border-b border-gray-100" id="categoryFilterBar">
-                        <button onclick="setCategoryFilter('all', this)" class="cat-btn bg-indigo-600 text-white px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap shadow-sm transition">全部</button>
-                        <button onclick="setCategoryFilter('preorder', this)" class="cat-btn bg-red-50 text-red-600 border border-red-200 px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap transition">⏰ 預購專區</button>
-                        <button onclick="setCategoryFilter('top', this)" class="cat-btn bg-white text-gray-600 border border-gray-200 px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap transition">上衣</button>
-                        <button onclick="setCategoryFilter('bottom', this)" class="cat-btn bg-white text-gray-600 border border-gray-200 px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap transition">下身</button>
-                        <button onclick="setCategoryFilter('dress', this)" class="cat-btn bg-white text-gray-600 border border-gray-200 px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap transition">洋裝/套裝</button>
-                        <button onclick="setCategoryFilter('outer', this)" class="cat-btn bg-white text-gray-600 border border-gray-200 px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap transition">外套</button>
-                        <button onclick="setCategoryFilter('acc', this)" class="cat-btn bg-white text-gray-600 border border-gray-200 px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap transition">配件</button>
+                        <!-- JS 動態生成 -->
                     </div>
 
                     <!-- 預購結單日篩選列 -->
@@ -201,7 +194,7 @@
                 </div>
             </div>
 
-            <!-- 🌟 滿額贈活動橫幅 (前台顯示區) -->
+            <!-- 滿額贈活動橫幅 (前台顯示區) -->
             <div id="customerPromoBanner" class="hidden mx-4 mt-4 mb-2 bg-gradient-to-br from-rose-50 to-pink-50 rounded-2xl p-4 shadow-sm border-2 border-rose-200">
                 <h3 id="displayPromoTitle" class="text-rose-600 font-bold text-lg text-center mb-1 flex items-center justify-center gap-2">
                     <i class="fa-solid fa-gift animate-bounce"></i> <span>滿額好禮大放送</span>
@@ -263,7 +256,26 @@
                 </button>
             </div>
 
-            <!-- 🌟 滿額贈活動設定 (後台區塊) -->
+            <!-- 🌟 商品分類目錄管理 (後台區塊) -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+                <h3 class="font-bold text-indigo-800 mb-2 flex items-center gap-2"><i class="fa-solid fa-folder-open"></i> 📂 商品分類目錄管理</h3>
+                <p class="text-xs text-gray-500 mb-4 font-bold">您可以在此新增、修改名稱，或決定前台是否要隱藏該分類。隱藏的分類仍會在後台顯示，方便您上架時使用。</p>
+                
+                <div id="adminCategoryList" class="flex flex-col gap-2 mb-4">
+                    <!-- JS 動態載入目錄 -->
+                </div>
+                
+                <div class="flex gap-2">
+                    <input type="text" id="inputNewCategoryName" placeholder="自訂新分類名稱 (如：新品快線、出清區)" class="flex-1 border border-gray-300 rounded-xl p-2.5 text-sm outline-none focus:ring-2 focus:ring-indigo-400">
+                    <button type="button" onclick="addCategory()" class="bg-indigo-100 text-indigo-700 px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-indigo-200 transition shadow-sm whitespace-nowrap"><i class="fa-solid fa-plus"></i> 新增目錄</button>
+                </div>
+                
+                <button onclick="saveCategories()" class="mt-5 w-full bg-indigo-600 text-white font-bold py-3 rounded-xl flex justify-center items-center gap-2 shadow-sm hover:bg-indigo-700 active:scale-[0.98] transition">
+                    <i class="fa-solid fa-floppy-disk"></i> 儲存目錄設定
+                </button>
+            </div>
+
+            <!-- 滿額贈活動設定 (後台區塊) -->
             <div class="bg-rose-50 rounded-2xl shadow-sm border border-rose-200 p-5">
                 <h3 class="font-bold text-rose-700 mb-4 flex items-center gap-2 text-lg"><i class="fa-solid fa-gift"></i> 🎁 滿額贈活動推播設定</h3>
                 
@@ -303,7 +315,6 @@
             <!-- 商品建立區塊 -->
             <div class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden">
                 <div class="bg-[#06C755] text-white p-4 flex items-center justify-between">
-                    <!-- 🌟 標題更新，讓預購更明顯 -->
                     <div class="flex items-center gap-2"><i class="fa-solid fa-camera-retro text-xl"></i><h2 class="text-lg font-bold">📸 新增款式 / 預購商品</h2></div>
                 </div>
                 <div class="p-5 flex flex-col md:flex-row gap-6">
@@ -325,10 +336,9 @@
                         
                         <div class="flex gap-3">
                             <div class="flex-1">
-                                <label class="block text-sm font-bold text-gray-700 mb-1">分類 <span class="text-red-500">*</span></label>
+                                <label class="block text-sm font-bold text-gray-700 mb-1">分類目錄 <span class="text-red-500">*</span></label>
                                 <select id="inputCategory" class="w-full border border-gray-300 rounded-xl p-2.5 outline-none font-bold text-indigo-700 bg-indigo-50 focus:ring-2 focus:ring-indigo-500" onchange="togglePreorderDate(this.value)">
-                                    <option value="top">👚 上衣</option><option value="bottom">👖 下身</option><option value="dress">👗 洋裝/套裝</option><option value="outer">🧥 外套</option><option value="acc">👜 包包/配件</option>
-                                    <option value="preorder" class="text-red-600 font-bold bg-red-50">⏰ 預購專區</option>
+                                    <!-- JS 動態生成 -->
                                 </select>
                             </div>
                             <div class="flex-1">
@@ -507,8 +517,19 @@
 
         window.productsData = [];
         window.base64ImagesArray = []; 
-        window.promoBase64ImagesArray = []; // 🌟 滿額贈活動圖片存放陣列
+        window.promoBase64ImagesArray = []; 
         window.draftProducts = []; 
+        
+        // 🌟 初始化分類設定 (包含新增與隱藏邏輯)
+        window.shopCategories = [
+            { id: 'preorder', name: '⏰ 預購專區', isHidden: false },
+            { id: 'top', name: '上衣', isHidden: false },
+            { id: 'bottom', name: '下身', isHidden: false },
+            { id: 'dress', name: '洋裝/套裝', isHidden: false },
+            { id: 'outer', name: '外套', isHidden: false },
+            { id: 'acc', name: '包包/配件', isHidden: false }
+        ];
+
         window.currentCategoryFilter = 'all'; 
         window.currentPreorderDate = 'all'; 
         window.currentSearchQuery = '';       
@@ -671,6 +692,126 @@
             }
         }
 
+        // 🌟 渲染後台的「分類目錄管理」列表
+        function renderCategoryManager() {
+            const list = document.getElementById('adminCategoryList');
+            if(!list) return;
+            list.innerHTML = '';
+            
+            window.shopCategories.forEach((cat, idx) => {
+                const eyeIcon = cat.isHidden ? 'fa-eye-slash text-gray-400' : 'fa-eye text-green-600';
+                const eyeText = cat.isHidden ? '已隱藏' : '顯示中';
+                const eyeBtnClass = cat.isHidden ? 'bg-gray-100 border border-gray-200' : 'bg-green-50 border border-green-200';
+                
+                let deleteBtn = '';
+                if(cat.id !== 'preorder') { 
+                    deleteBtn = `<button type="button" onclick="deleteCategory(${idx})" class="w-10 h-10 rounded-xl bg-red-50 text-red-500 hover:bg-red-100 flex items-center justify-center shrink-0 transition" title="刪除分類"><i class="fa-solid fa-trash"></i></button>`;
+                } else {
+                    deleteBtn = `<div class="w-10 h-10 shrink-0"></div>`;
+                }
+
+                list.innerHTML += `
+                    <div class="flex items-center gap-2">
+                        <input type="text" value="${cat.name}" onchange="updateCategoryName(${idx}, this.value)" class="flex-1 border border-gray-300 rounded-xl p-2.5 text-sm outline-none focus:ring-2 focus:ring-indigo-400 ${cat.id === 'preorder' ? 'font-bold text-red-600 bg-red-50 border-red-200' : ''}">
+                        <button type="button" onclick="toggleCategoryHidden(${idx})" class="h-10 px-3 rounded-xl ${eyeBtnClass} flex items-center justify-center gap-1 shrink-0 transition min-w-[80px]" title="切換前台顯示/隱藏">
+                            <i class="fa-solid ${eyeIcon}"></i> <span class="text-xs font-bold text-gray-600">${eyeText}</span>
+                        </button>
+                        ${deleteBtn}
+                    </div>
+                `;
+            });
+            
+            updateAllCategoryUI(); // 同步更新前台與下拉選單
+        }
+
+        window.updateCategoryName = function(idx, newName) {
+            if(newName.trim() === '') return;
+            window.shopCategories[idx].name = newName.trim();
+        }
+
+        window.toggleCategoryHidden = function(idx) {
+            window.shopCategories[idx].isHidden = !window.shopCategories[idx].isHidden;
+            renderCategoryManager();
+        }
+
+        window.addCategory = function() {
+            const input = document.getElementById('inputNewCategoryName');
+            const name = input.value.trim();
+            if(!name) return;
+            const newId = 'cat_' + Date.now();
+            window.shopCategories.push({ id: newId, name: name, isHidden: false });
+            input.value = '';
+            renderCategoryManager();
+        }
+
+        window.deleteCategory = function(idx) {
+            if(confirm('確定要刪除這個分類嗎？\n(注意：如果有商品設定為此分類，請記得幫他們手動改成其他分類喔)')) {
+                window.shopCategories.splice(idx, 1);
+                renderCategoryManager();
+            }
+        }
+
+        window.saveCategories = async function() {
+            try {
+                await setDoc(doc(db, 'settings', 'shopInfo'), {
+                    categories: window.shopCategories
+                }, { merge: true });
+                showToast("📂 目錄設定已儲存更新！", "purple");
+            } catch (err) { showToast("儲存失敗", "error"); }
+        }
+
+        // 🌟 統一更新全站的分類 UI (下拉選單與前台按鈕)
+        window.updateAllCategoryUI = function() {
+            const addSelect = document.getElementById('inputCategory');
+            const editSelect = document.getElementById('editCategory');
+            const filterBar = document.getElementById('categoryFilterBar');
+
+            // 處理後台的下拉選單
+            let optionsHtml = '';
+            window.shopCategories.forEach(cat => {
+                const style = cat.id === 'preorder' ? 'class="text-red-600 font-bold bg-red-50"' : '';
+                optionsHtml += `<option value="${cat.id}" ${style}>${cat.name}</option>`;
+            });
+
+            if(addSelect) {
+                const currentAddVal = addSelect.value;
+                addSelect.innerHTML = optionsHtml;
+                if(window.shopCategories.find(c => c.id === currentAddVal)) addSelect.value = currentAddVal;
+            }
+
+            if(editSelect) {
+                const currentEditVal = editSelect.value;
+                editSelect.innerHTML = optionsHtml;
+                if(window.shopCategories.find(c => c.id === currentEditVal)) editSelect.value = currentEditVal;
+            }
+
+            // 處理前台的分類按鈕
+            if(filterBar) {
+                const allBtnClass = window.currentCategoryFilter === 'all'
+                    ? "cat-btn bg-indigo-600 text-white px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap shadow-sm transition"
+                    : "cat-btn bg-white text-gray-600 border border-gray-200 px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap transition";
+
+                let filterHtml = `<button onclick="setCategoryFilter('all')" class="${allBtnClass}">全部</button>`;
+
+                window.shopCategories.forEach(cat => {
+                    if (cat.isHidden) return; // 客人前台不顯示被隱藏的分類
+
+                    let btnClass = "";
+                    if (window.currentCategoryFilter === cat.id) {
+                         if (cat.id === 'preorder') btnClass = "cat-btn bg-red-600 text-white px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap shadow-sm transition";
+                         else btnClass = "cat-btn bg-indigo-600 text-white px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap shadow-sm transition";
+                    } else {
+                         if (cat.id === 'preorder') btnClass = "cat-btn bg-red-50 text-red-600 border border-red-200 px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap transition";
+                         else btnClass = "cat-btn bg-white text-gray-600 border border-gray-200 px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap transition";
+                    }
+
+                    filterHtml += `<button onclick="setCategoryFilter('${cat.id}')" class="${btnClass}">${cat.name}</button>`;
+                });
+                filterBar.innerHTML = filterHtml;
+            }
+        }
+
+        // 初始化跑馬燈
         let tickerIdx = 0;
         setInterval(() => {
             const ticker = document.getElementById('newsTicker');
@@ -680,12 +821,13 @@
             }
         }, 3500);
 
+        // 讀取 Firebase 設定
         const settingsRef = doc(db, 'settings', 'shopInfo');
         onSnapshot(settingsRef, (docSnap) => {
             if (docSnap.exists()) {
                 const data = docSnap.data();
                 
-                // 強制鎖定前台名稱為 200%森衣好，防止資料庫舊設定覆蓋
+                // 強制鎖定前台名稱
                 document.getElementById('customerShopName').innerText = '200%森衣好';
                 
                 // 一般店鋪設定
@@ -736,6 +878,12 @@
                 }
                 renderHotTags();
                 
+                // 🌟 讀取自訂分類目錄
+                if(data.categories && data.categories.length > 0) {
+                    window.shopCategories = data.categories;
+                }
+                renderCategoryManager(); // 渲染後台與前台 UI
+                
                 const linkIg = document.getElementById('linkIg');
                 const linkShopee = document.getElementById('linkShopee');
                 const iconLine = document.getElementById('iconLine');
@@ -745,14 +893,15 @@
                 if(data.shopeeLink) { linkShopee.href = data.shopeeLink; linkShopee.classList.remove('hidden'); } else { linkShopee.classList.add('hidden'); }
                 if(data.lineLink) { iconLine.classList.remove('hidden'); } else { iconLine.classList.add('hidden'); }
                 if(data.fbLink) { iconFb.classList.remove('hidden'); } else { iconFb.classList.add('hidden'); }
+            } else {
+                renderCategoryManager(); // 沒有資料也先初始化預設 UI
             }
         });
 
-        // 儲存店鋪基本設定
         window.saveSettings = async function() {
             try {
                 await setDoc(doc(db, 'settings', 'shopInfo'), { 
-                    shopName: '200%森衣好', // 後台設定也統一儲存新店名
+                    shopName: '200%森衣好', 
                     lineLink: document.getElementById('inputLineLink').value.trim(),
                     igLink: document.getElementById('inputIgLink').value.trim(),
                     fbLink: document.getElementById('inputFbLink').value.trim(),
@@ -762,7 +911,6 @@
             } catch (err) { showToast(`儲存失敗`, "error"); }
         };
 
-        // 🌟 儲存滿額活動設定
         window.savePromoSettings = async function() {
             try {
                 await setDoc(doc(db, 'settings', 'shopInfo'), { 
@@ -804,7 +952,6 @@
             } catch (e) { showToast("抓取失敗", "error"); }
         };
 
-        // 商品圖片上傳
         window.previewImages = async function(event) {
             const files = event.target.files;
             if (!files || files.length === 0) return;
@@ -832,7 +979,6 @@
             renderPreviewBox(); event.target.value = ''; 
         };
 
-        // 🌟 活動宣傳圖片上傳
         window.previewPromoImages = async function(event) {
             const files = event.target.files;
             if (!files || files.length === 0) return;
@@ -871,7 +1017,6 @@
             if (window.base64ImagesArray.length === 0) { document.getElementById('previewContainer').classList.add('hidden'); document.getElementById('uploadPlaceholder').classList.remove('hidden'); }
         }
 
-        // 🌟 渲染活動圖片預覽框
         function renderPromoPreviewBox() {
             const container = document.getElementById('promoPreviewContainer'); container.innerHTML = '';
             window.promoBase64ImagesArray.forEach((src, index) => {
@@ -1084,24 +1229,16 @@
             window.filterProducts();
         };
 
-        window.setCategoryFilter = function(cat, btn) {
+        // 🌟 更新：分類按鈕點擊事件 (不再傳 btn 參數，完全依靠動態刷新)
+        window.setCategoryFilter = function(cat) {
             window.currentCategoryFilter = cat;
             window.currentPreorderDate = 'all'; // 切換主分類時，重置結單日篩選
             
-            const btns = document.querySelectorAll('.cat-btn');
-            btns.forEach(b => {
-                if(b.innerText.includes('預購')) {
-                    b.className = "cat-btn bg-red-50 text-red-600 border border-red-200 px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap transition";
-                } else {
-                    b.className = "cat-btn bg-white text-gray-600 border border-gray-200 px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap transition";
-                }
-            });
+            updateAllCategoryUI(); // 重新渲染全站分類 UI
             
             if (cat === 'preorder') {
-                btn.className = "cat-btn bg-red-600 text-white px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap shadow-sm transition";
                 document.getElementById('preorderDateFilterBarContainer').classList.remove('hidden');
             } else {
-                btn.className = "cat-btn bg-indigo-600 text-white px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap shadow-sm transition";
                 document.getElementById('preorderDateFilterBarContainer').classList.add('hidden');
             }
             
@@ -1141,7 +1278,6 @@
             element.classList.replace('border-transparent', 'border-indigo-500');
         };
 
-        // 格式化日期顯示 (例如 2026-08-15 變成 8/15)
         function formatPreorderDate(dateString) {
             if(!dateString) return '';
             const parts = dateString.split('-');
@@ -1156,7 +1292,7 @@
             if(customerList) customerList.innerHTML = '';
             
             let visibleCount = 0;
-            let preorderDatesSet = new Set(); // 收集預購日期
+            let preorderDatesSet = new Set(); 
 
             window.productsData.forEach(p => {
                 const imgArray = p.imageUrls && p.imageUrls.length > 0 ? p.imageUrls : [p.imageUrl];
@@ -1194,7 +1330,6 @@
                         </div>`;
                 }
 
-                // --- 收集預購結單日 (前台且未隱藏的商品) ---
                 if (pStatus !== 'hidden' && p.category === 'preorder' && p.preorderDate) {
                     preorderDatesSet.add(p.preorderDate);
                 }
@@ -1235,7 +1370,6 @@
 
                     const videoLinkHtml = p.videoLink ? `<a href="${p.videoLink}" target="_blank" class="inline-block mt-3 bg-blue-50 border border-blue-200 text-blue-600 font-bold text-xs px-4 py-2 rounded-lg hover:bg-blue-100 transition shadow-sm active:scale-95"><i class="fa-brands fa-facebook text-base"></i> 點我看 FB 粉專實穿影片</a>` : '';
                     
-                    // 🌟 預購商品專屬標示
                     let preorderAlertHtml = '';
                     if (p.category === 'preorder' && p.preorderDate) {
                         const formattedDate = formatPreorderDate(p.preorderDate);
@@ -1297,7 +1431,6 @@
                 }
             });
 
-            // --- 渲染預購結單日篩選列 ---
             if (window.currentCategoryFilter === 'preorder') {
                 const dateBar = document.getElementById('preorderDateFilterBar');
                 dateBar.innerHTML = '';
@@ -1308,7 +1441,6 @@
                 
                 dateBar.innerHTML += `<button onclick="setPreorderDateFilter('all', this)" class="${allBtnClass}">顯示全部</button>`;
                 
-                // 排序日期 (由近到遠)
                 const sortedDates = Array.from(preorderDatesSet).sort();
                 
                 sortedDates.forEach(dateStr => {
