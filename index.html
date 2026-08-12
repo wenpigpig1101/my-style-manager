@@ -172,16 +172,15 @@
                     <div class="relative bg-gray-100 rounded-full flex items-center px-3 py-2 border border-gray-200">
                         <i class="fa-solid fa-magnifying-glass text-gray-400"></i>
                         <input type="text" id="searchInput" onkeyup="filterProducts()" placeholder="搜尋款式或關鍵字..." class="bg-transparent w-full ml-2 outline-none text-sm text-gray-700">
-                        <!-- 🌟 新增：一鍵清除搜尋按鈕 -->
                         <button onclick="clearSearch()" id="clearSearchBtn" class="hidden text-gray-400 hover:text-gray-600 transition p-1"><i class="fa-solid fa-circle-xmark"></i></button>
                     </div>
 
-                    <!-- 🌟 前台熱搜標籤顯示區 -->
+                    <!-- 前台熱搜標籤顯示區 -->
                     <div id="customerHotTagsContainer" class="hidden flex overflow-x-auto hide-scrollbar gap-2 mt-2 mb-2 pb-1">
                         <div id="customerHotTagsList" class="flex gap-2"></div>
                     </div>
 
-                    <!-- 🌟 分類篩選列：將「預購專區」移到第二個，確保免滑動就能看到！ -->
+                    <!-- 分類篩選列 -->
                     <div class="flex overflow-x-auto hide-scrollbar gap-2 pb-2 mt-2 border-b border-gray-100" id="categoryFilterBar">
                         <button onclick="setCategoryFilter('all', this)" class="cat-btn bg-indigo-600 text-white px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap shadow-sm transition">全部</button>
                         <button onclick="setCategoryFilter('preorder', this)" class="cat-btn bg-red-50 text-red-600 border border-red-200 px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap transition">⏰ 預購專區</button>
@@ -192,14 +191,24 @@
                         <button onclick="setCategoryFilter('acc', this)" class="cat-btn bg-white text-gray-600 border border-gray-200 px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap transition">配件</button>
                     </div>
 
-                    <!-- 🌟 預購結單日篩選列 (選擇預購專區時才顯示) -->
+                    <!-- 預購結單日篩選列 -->
                     <div id="preorderDateFilterBarContainer" class="hidden mt-2 pb-2">
                         <div class="text-xs font-bold text-red-500 mb-1 flex items-center gap-1"><i class="fa-regular fa-calendar-check"></i> 請選擇結單日看款</div>
                         <div id="preorderDateFilterBar" class="flex overflow-x-auto hide-scrollbar gap-2">
                             <!-- JS 動態生成 -->
                         </div>
                     </div>
+                </div>
+            </div>
 
+            <!-- 🌟 滿額贈活動橫幅 (前台顯示區) -->
+            <div id="customerPromoBanner" class="hidden mx-4 mt-4 mb-2 bg-gradient-to-br from-rose-50 to-pink-50 rounded-2xl p-4 shadow-sm border-2 border-rose-200">
+                <h3 id="displayPromoTitle" class="text-rose-600 font-bold text-lg text-center mb-1 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-gift animate-bounce"></i> <span>滿額好禮大放送</span>
+                </h3>
+                <div id="displayPromoRules" class="text-rose-800 text-sm font-bold text-center mb-3 whitespace-pre-wrap leading-relaxed"></div>
+                <div id="displayPromoImages" class="grid grid-cols-2 gap-2">
+                    <!-- JS 動態載入好禮圖片 -->
                 </div>
             </div>
 
@@ -250,13 +259,52 @@
                 </div>
 
                 <button onclick="saveSettings()" class="mt-5 w-full bg-indigo-600 text-white font-bold py-3 rounded-xl flex justify-center items-center gap-2 shadow-sm hover:bg-indigo-700 active:scale-[0.98] transition">
-                    <i class="fa-solid fa-floppy-disk"></i> 儲存設定
+                    <i class="fa-solid fa-floppy-disk"></i> 儲存店鋪設定
                 </button>
             </div>
 
+            <!-- 🌟 滿額贈活動設定 (後台區塊) -->
+            <div class="bg-rose-50 rounded-2xl shadow-sm border border-rose-200 p-5">
+                <h3 class="font-bold text-rose-700 mb-4 flex items-center gap-2 text-lg"><i class="fa-solid fa-gift"></i> 🎁 滿額贈活動推播設定</h3>
+                
+                <div class="flex items-center gap-2 mb-4 bg-white p-3 rounded-xl border border-rose-100 shadow-sm">
+                    <input type="checkbox" id="inputPromoEnabled" class="w-5 h-5 text-rose-600 rounded cursor-pointer">
+                    <label for="inputPromoEnabled" class="font-bold text-rose-800 cursor-pointer select-none">開啟前台滿額贈推播</label>
+                </div>
+                
+                <div class="grid grid-cols-1 gap-4">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">活動標題</label>
+                        <input type="text" id="inputPromoTitle" value="✨ 滿額好禮大放送 ✨" placeholder="例如：週年慶好禮滿額贈" class="w-full border border-gray-300 rounded-xl p-3 outline-none focus:ring-2 focus:ring-rose-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">活動規則 (支援換行)</label>
+                        <textarea id="inputPromoRules" rows="2" placeholder="滿額3000好禮任選2&#10;滿額2000好禮任選1" class="w-full border border-gray-300 rounded-xl p-3 outline-none focus:ring-2 focus:ring-rose-500"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">好禮宣傳照片 (最多 4 張)</label>
+                        <div class="w-full border-2 border-dashed border-rose-300 bg-white rounded-2xl p-4 flex flex-col items-center justify-center relative min-h-[120px]">
+                            <div id="promoPreviewContainer" class="w-full flex flex-wrap gap-2 justify-center items-center hidden mb-2"></div>
+                            <div id="promoUploadPlaceholder" class="text-center p-2 cursor-pointer hover:bg-rose-50 transition w-full h-full flex flex-col items-center justify-center rounded-xl" onclick="document.getElementById('promoFileInput').click()">
+                                <i class="fa-solid fa-images text-2xl text-rose-400 mb-2"></i>
+                                <span class="text-gray-600 font-bold block text-sm">點擊上傳好禮照片</span>
+                                <span class="text-xs text-gray-400 mt-1 block">(建議正方形)</span>
+                            </div>
+                            <input type="file" id="promoFileInput" accept="image/*" multiple class="hidden" onchange="previewPromoImages(event)">
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="savePromoSettings()" class="mt-5 w-full bg-rose-500 text-white font-bold py-3 rounded-xl flex justify-center items-center gap-2 shadow-sm hover:bg-rose-600 active:scale-[0.98] transition">
+                    <i class="fa-solid fa-gift"></i> 儲存滿額活動設定
+                </button>
+            </div>
+
+            <!-- 商品建立區塊 -->
             <div class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden">
                 <div class="bg-[#06C755] text-white p-4 flex items-center justify-between">
-                    <div class="flex items-center gap-2"><i class="fa-solid fa-camera-retro text-xl"></i><h2 class="text-lg font-bold">新增款式</h2></div>
+                    <!-- 🌟 標題更新，讓預購更明顯 -->
+                    <div class="flex items-center gap-2"><i class="fa-solid fa-camera-retro text-xl"></i><h2 class="text-lg font-bold">📸 新增款式 / 預購商品</h2></div>
                 </div>
                 <div class="p-5 flex flex-col md:flex-row gap-6">
                     
@@ -280,7 +328,7 @@
                                 <label class="block text-sm font-bold text-gray-700 mb-1">分類 <span class="text-red-500">*</span></label>
                                 <select id="inputCategory" class="w-full border border-gray-300 rounded-xl p-2.5 outline-none font-bold text-indigo-700 bg-indigo-50 focus:ring-2 focus:ring-indigo-500" onchange="togglePreorderDate(this.value)">
                                     <option value="top">👚 上衣</option><option value="bottom">👖 下身</option><option value="dress">👗 洋裝/套裝</option><option value="outer">🧥 外套</option><option value="acc">👜 包包/配件</option>
-                                    <option value="preorder" class="text-red-600 font-bold">⏰ 預購專區</option>
+                                    <option value="preorder" class="text-red-600 font-bold bg-red-50">⏰ 預購專區</option>
                                 </select>
                             </div>
                             <div class="flex-1">
@@ -459,6 +507,7 @@
 
         window.productsData = [];
         window.base64ImagesArray = []; 
+        window.promoBase64ImagesArray = []; // 🌟 滿額贈活動圖片存放陣列
         window.draftProducts = []; 
         window.currentCategoryFilter = 'all'; 
         window.currentPreorderDate = 'all'; 
@@ -639,11 +688,42 @@
                 // 強制鎖定前台名稱為 200%森衣好，防止資料庫舊設定覆蓋
                 document.getElementById('customerShopName').innerText = '200%森衣好';
                 
+                // 一般店鋪設定
                 if(document.getElementById('inputLineLink')) document.getElementById('inputLineLink').value = data.lineLink || '';
                 if(document.getElementById('inputIgLink')) document.getElementById('inputIgLink').value = data.igLink || '';
                 if(document.getElementById('inputFbLink')) document.getElementById('inputFbLink').value = data.fbLink || '';
                 if(document.getElementById('inputShopeeLink')) document.getElementById('inputShopeeLink').value = data.shopeeLink || '';
                 
+                // 滿額贈活動設定資料讀取
+                if(document.getElementById('inputPromoEnabled')) document.getElementById('inputPromoEnabled').checked = data.promoEnabled || false;
+                if(document.getElementById('inputPromoTitle')) document.getElementById('inputPromoTitle').value = data.promoTitle || '✨ 滿額好禮大放送 ✨';
+                if(document.getElementById('inputPromoRules')) document.getElementById('inputPromoRules').value = data.promoRules || '滿額3000好禮任選2\n滿額2000好禮任選1';
+                
+                if (data.promoImages) {
+                    window.promoBase64ImagesArray = data.promoImages;
+                    renderPromoPreviewBox();
+                }
+
+                // 前台活動橫幅顯示控制
+                const promoBanner = document.getElementById('customerPromoBanner');
+                if (data.promoEnabled) {
+                    promoBanner.classList.remove('hidden');
+                    document.getElementById('displayPromoTitle').innerHTML = `<i class="fa-solid fa-gift animate-bounce"></i> <span>${data.promoTitle || '滿額贈活動'}</span>`;
+                    document.getElementById('displayPromoRules').innerText = data.promoRules || '';
+                    
+                    const imagesContainer = document.getElementById('displayPromoImages');
+                    imagesContainer.innerHTML = '';
+                    if (data.promoImages && data.promoImages.length > 0) {
+                        data.promoImages.forEach(src => {
+                            imagesContainer.innerHTML += `
+                                <img src="${src}" class="w-full h-auto aspect-square object-cover rounded-xl shadow-sm border border-rose-100 cursor-pointer hover:opacity-80 transition" onclick="openImageModal(this.src)">
+                            `;
+                        });
+                    }
+                } else {
+                    promoBanner.classList.add('hidden');
+                }
+
                 window.currentLineLink = data.lineLink || '';
                 window.currentFbLink = data.fbLink || '';
 
@@ -668,6 +748,7 @@
             }
         });
 
+        // 儲存店鋪基本設定
         window.saveSettings = async function() {
             try {
                 await setDoc(doc(db, 'settings', 'shopInfo'), { 
@@ -677,8 +758,21 @@
                     fbLink: document.getElementById('inputFbLink').value.trim(),
                     shopeeLink: document.getElementById('inputShopeeLink').value.trim()
                 }, { merge: true });
-                showToast("✨ 設定已儲存！", "purple");
+                showToast("✨ 店鋪設定已儲存！", "purple");
             } catch (err) { showToast(`儲存失敗`, "error"); }
+        };
+
+        // 🌟 儲存滿額活動設定
+        window.savePromoSettings = async function() {
+            try {
+                await setDoc(doc(db, 'settings', 'shopInfo'), { 
+                    promoEnabled: document.getElementById('inputPromoEnabled').checked,
+                    promoTitle: document.getElementById('inputPromoTitle').value.trim(),
+                    promoRules: document.getElementById('inputPromoRules').value.trim(),
+                    promoImages: window.promoBase64ImagesArray
+                }, { merge: true });
+                showToast("🎁 滿額贈活動已儲存發布！", "success");
+            } catch (err) { showToast(`活動儲存失敗`, "error"); }
         };
 
         function processAndSortData(snapshot) {
@@ -710,6 +804,7 @@
             } catch (e) { showToast("抓取失敗", "error"); }
         };
 
+        // 商品圖片上傳
         window.previewImages = async function(event) {
             const files = event.target.files;
             if (!files || files.length === 0) return;
@@ -737,6 +832,34 @@
             renderPreviewBox(); event.target.value = ''; 
         };
 
+        // 🌟 活動宣傳圖片上傳
+        window.previewPromoImages = async function(event) {
+            const files = event.target.files;
+            if (!files || files.length === 0) return;
+            document.getElementById('promoUploadPlaceholder').classList.add('hidden');
+            document.getElementById('promoPreviewContainer').classList.remove('hidden');
+            
+            const spaceLeft = 4 - window.promoBase64ImagesArray.length;
+            const filesToProcess = Math.min(files.length, spaceLeft);
+            
+            for (let i = 0; i < filesToProcess; i++) {
+                await new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const img = new Image(); img.src = e.target.result;
+                        img.onload = function() {
+                            const canvas = document.createElement('canvas');
+                            let width = img.width, height = img.height; const MAX = 600; 
+                            if (width > height) { if (width > MAX) { height *= MAX / width; width = MAX; } } else { if (height > MAX) { width *= MAX / height; height = MAX; } }
+                            canvas.width = width; canvas.height = height; const ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0, width, height);
+                            window.promoBase64ImagesArray.push(canvas.toDataURL('image/jpeg', 0.6)); resolve();
+                        }
+                    }; reader.readAsDataURL(files[i]);
+                });
+            }
+            renderPromoPreviewBox(); event.target.value = ''; 
+        };
+
         function renderPreviewBox() {
             const container = document.getElementById('previewContainer'); container.innerHTML = '';
             window.base64ImagesArray.forEach((src, index) => {
@@ -748,7 +871,20 @@
             if (window.base64ImagesArray.length === 0) { document.getElementById('previewContainer').classList.add('hidden'); document.getElementById('uploadPlaceholder').classList.remove('hidden'); }
         }
 
+        // 🌟 渲染活動圖片預覽框
+        function renderPromoPreviewBox() {
+            const container = document.getElementById('promoPreviewContainer'); container.innerHTML = '';
+            window.promoBase64ImagesArray.forEach((src, index) => {
+                container.innerHTML += `<div class="relative w-16 h-16 rounded-lg overflow-hidden border shadow-sm flex-shrink-0"><img src="${src}" class="w-full h-full object-cover"><button onclick="removePromoImage(${index})" class="absolute top-0 right-0 bg-red-500 text-white w-5 h-5 text-[10px] font-bold rounded-bl-lg">&times;</button></div>`;
+            });
+            if (window.promoBase64ImagesArray.length > 0 && window.promoBase64ImagesArray.length < 4) {
+                container.innerHTML += `<div onclick="document.getElementById('promoFileInput').click()" class="w-16 h-16 rounded-lg border-2 border-dashed border-rose-300 flex items-center justify-center cursor-pointer hover:bg-rose-50 text-rose-500"><i class="fa-solid fa-plus text-xl"></i></div>`;
+            }
+            if (window.promoBase64ImagesArray.length === 0) { document.getElementById('promoPreviewContainer').classList.add('hidden'); document.getElementById('promoUploadPlaceholder').classList.remove('hidden'); }
+        }
+
         window.removeImage = function(index) { window.base64ImagesArray.splice(index, 1); renderPreviewBox(); };
+        window.removePromoImage = function(index) { window.promoBase64ImagesArray.splice(index, 1); renderPromoPreviewBox(); };
 
         window.addToDraft = function() {
             const title = document.getElementById('inputTitle').value.trim();
