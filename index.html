@@ -85,8 +85,10 @@
             <h3 class="font-bold text-lg mb-4 text-indigo-800 flex items-center gap-2"><i class="fa-solid fa-pen-to-square"></i> 編輯商品</h3>
             <input type="hidden" id="editProdId">
             <div class="space-y-4">
-                <div><label class="block text-sm font-bold text-gray-700 mb-1">商品名稱</label><input type="text" id="editTitle" class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-500 outline-none"></div>
-                <div><label class="block text-sm font-bold text-gray-700 mb-1">價格</label><input type="number" id="editPrice" class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-500 outline-none"></div>
+                <div class="flex gap-3">
+                    <div class="flex-1"><label class="block text-sm font-bold text-gray-700 mb-1">商品名稱 <span class="text-red-500">*</span></label><input type="text" id="editTitle" class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-500 outline-none"></div>
+                    <div class="w-24"><label class="block text-sm font-bold text-gray-700 mb-1">價格 <span class="text-red-500">*</span></label><input type="number" id="editPrice" class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-500 outline-none"></div>
+                </div>
                 <div>
                     <label class="block text-sm font-bold text-gray-700 mb-1">分類目錄</label>
                     <select id="editCategory" class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-500 outline-none" onchange="toggleEditPreorderDate(this.value)">
@@ -97,16 +99,94 @@
                     <label class="block text-sm font-bold text-red-600 mb-1">📅 結單日期 (預購專區必填)</label>
                     <input type="date" id="editPreorderDate" class="w-full border border-red-300 bg-red-50 rounded-lg p-2 focus:ring-2 focus:ring-red-500 outline-none">
                 </div>
-                <div><label class="block text-sm font-bold text-gray-700 mb-1">尺寸/材質說明</label><input type="text" id="editMeasurements" class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-500 outline-none"></div>
-                <div><label class="block text-sm font-bold text-gray-700 mb-1">詳細介紹</label><textarea id="editDesc" rows="3" class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-500 outline-none"></textarea></div>
-                <div class="flex items-center gap-2 bg-pink-50 p-2 rounded-lg border border-pink-200">
-                    <input type="checkbox" id="editShowModelInfo" class="w-4 h-4 text-pink-600 rounded focus:ring-pink-500 cursor-pointer">
-                    <label for="editShowModelInfo" class="text-sm font-bold text-pink-800 cursor-pointer">顯示「實穿參考」</label>
+                
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">尺寸/規格簡介</label>
+                    <input type="text" id="editMeasurements" class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="例如：胸圍50吋以下可穿 衣長70公分">
+                    
+                    <!-- 🌟 編輯區的快選標籤 -->
+                    <div class="flex flex-wrap gap-2 mt-2" id="editFitTagsContainer">
+                        <button type="button" onclick="toggleEditFitTag(this)" class="edit-fit-tag bg-gray-100 text-gray-500 px-2 py-1 rounded text-xs font-bold border transition">S~L可穿</button>
+                        <button type="button" onclick="toggleEditFitTag(this)" class="edit-fit-tag bg-gray-100 text-gray-500 px-2 py-1 rounded text-xs font-bold border transition">S-XL可穿</button>
+                        <button type="button" onclick="toggleEditFitTag(this)" class="edit-fit-tag bg-gray-100 text-gray-500 px-2 py-1 rounded text-xs font-bold border transition">S-2XL可穿</button>
+                        <button type="button" onclick="toggleEditFitTag(this)" class="edit-fit-tag bg-gray-100 text-gray-500 px-2 py-1 rounded text-xs font-bold border transition">小隻女孩福音</button>
+                        <button type="button" onclick="toggleEditFitTag(this)" class="edit-fit-tag bg-gray-100 text-gray-500 px-2 py-1 rounded text-xs font-bold border transition">大尺碼福音</button>
+                        <button type="button" onclick="toggleEditFitTag(this)" class="edit-fit-tag bg-gray-100 text-gray-500 px-2 py-1 rounded text-xs font-bold border transition">孕婦可穿</button>
+                        <button type="button" onclick="toggleEditFitTag(this)" class="edit-fit-tag bg-gray-100 text-gray-500 px-2 py-1 rounded text-xs font-bold border transition">棉花糖女孩</button>
+                    </div>
+                </div>
+
+                <!-- 🌟 編輯區的智慧短語精靈 -->
+                <div class="border border-purple-200 bg-purple-50/50 rounded-xl p-3 mt-2">
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="block text-sm font-bold text-purple-800"><i class="fa-solid fa-wand-magic-sparkles"></i> 智慧短語精靈 (點擊加入介紹)</label>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <div class="text-xs font-bold text-blue-600 mb-1">💬 社群回饋與互動 (口碑推薦)</div>
+                        <div class="phrase-scroll flex gap-2">
+                            <button type="button" onclick="addEditPhrase('💬 這款在 LINE 上被姐姐問翻了，恭喜許願敲碗成功！')" class="flex-shrink-0 bg-white border border-blue-200 text-blue-700 hover:text-white hover:bg-blue-500 px-2 py-1 rounded text-xs font-bold transition whitespace-nowrap shadow-sm">💬 LINE群問翻許願成功</button>
+                            <button type="button" onclick="addEditPhrase('🔥 FB 直播這件被問爆，真的超修飾！')" class="flex-shrink-0 bg-white border border-blue-200 text-blue-700 hover:text-white hover:bg-blue-500 px-2 py-1 rounded text-xs font-bold transition whitespace-nowrap shadow-sm">🔥 FB直播被問爆</button>
+                            <button type="button" onclick="addEditPhrase('🥰 收到實品的客人都秀給我看了，真的超美！')" class="flex-shrink-0 bg-white border border-blue-200 text-blue-700 hover:text-white hover:bg-blue-500 px-2 py-1 rounded text-xs font-bold transition whitespace-nowrap shadow-sm">🥰 客人狂曬實品照</button>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="text-xs font-bold text-purple-600 mb-1">☁️ 材質與舒適度 (左右滑動看更多)</div>
+                        <div class="phrase-scroll flex gap-2">
+                            <button type="button" onclick="addEditPhrase('☁️ 雲朵般柔軟親膚，穿起來完全零刺癢！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">☁️ 雲朵親膚零刺癢</button>
+                            <button type="button" onclick="addEditPhrase('🧊 涼感冰絲面料，夏天穿出門絕對不悶熱！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">🧊 涼感冰絲不悶熱</button>
+                            <button type="button" onclick="addEditPhrase('🧘‍♀️ 超彈力材質，大動作也不卡卡，超級好活動！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">🧘‍♀️ 超彈力不卡卡</button>
+                            <button type="button" onclick="addEditPhrase('✨ 高級訂製雪紡，手感滑順、自帶仙女光澤！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">✨ 雪紡自帶仙女光澤</button>
+                            <button type="button" onclick="addEditPhrase('🧺 挺版不易皺面料，洗完免熨燙，懶人必備神物！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">🧺 挺版免熨燙</button>
+                            <button type="button" onclick="addEditPhrase('🛡️ 高磅數純棉，質感超好、單穿也完全不透光！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">🛡️ 高磅數不透光</button>
+                            <button type="button" onclick="addEditPhrase('🌬️ 透氣排汗不黏膩，台灣的悶熱天氣穿剛剛好！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">🌬️ 透氣排汗不黏膩</button>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <div class="text-xs font-bold text-purple-600 mb-1">✂️ 版型與修飾度 (左右滑動看更多)</div>
+                        <div class="phrase-scroll flex gap-2">
+                            <button type="button" onclick="addEditPhrase('🪄 魔法顯瘦剪裁，完美隱藏小腹與腰間肉肉！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">🪄 魔法顯瘦藏小腹</button>
+                            <button type="button" onclick="addEditPhrase('✂️ A字修飾版型，假胯寬、大腿肉一秒消失！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">✂️ A字修飾假胯寬</button>
+                            <button type="button" onclick="addEditPhrase('🎀 超舒適寬版鬆緊腰，吃飽喝足也完全不勒肚！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">🎀 鬆緊腰不勒肚</button>
+                            <button type="button" onclick="addEditPhrase('📐 獨家訂製比例，高腰設計視覺秒變三七身大長腿！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">📐 高腰秒變大長腿</button>
+                            <button type="button" onclick="addEditPhrase('✨ 顯瘦 V 領設計，拉長脖子線條、超修飾臉型！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">✨ V領修飾臉型</button>
+                            <button type="button" onclick="addEditPhrase('👖 神神奇神褲版型，不顯臀寬，背面看也超修飾！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">👖 神褲版型不顯臀</button>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="text-xs font-bold text-purple-600 mb-1">🔥 推坑與急迫感 (左右滑動看更多)</div>
+                        <div class="phrase-scroll flex gap-2">
+                            <button type="button" onclick="addEditPhrase('🔥 正韓連線爆款，實體攤位一上架就立刻被秒殺！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">🔥 正韓連線秒殺款</button>
+                            <button type="button" onclick="addEditPhrase('🛍️ 實體顏色真的超美，我們自己也偷偷包色了！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">🛍️ 實穿自己偷偷包色</button>
+                            <button type="button" onclick="addEditPhrase('⏳ 廠商斷貨預警，這批現貨賣完真的不知道何時補！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">⏳ 斷貨預警要買要快</button>
+                            <button type="button" onclick="addEditPhrase('💎 獨家訂製款，外面絕對找不到一模一樣的質感！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">💎 獨家訂製好質感</button>
+                            <button type="button" onclick="addEditPhrase('💯 買過都說讚的超高回購款，錯過絕對會搥心肝！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">💯 超高回購不買後悔</button>
+                            <button type="button" onclick="addEditPhrase('👑 本期鎮店之寶，客人看到實品幾乎直接打包！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">👑 鎮店之寶直接打包</button>
+                        </div>
+                    </div>
+
+                    <div id="editCustomPhraseBox" class="mb-2 hidden">
+                        <div class="text-xs font-bold text-purple-600 mb-1">🌟 專屬自訂短語</div>
+                        <div id="editCustomPhraseList" class="phrase-scroll flex gap-2"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">詳細介紹</label>
+                    <textarea id="editDesc" rows="4" class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-indigo-500 outline-none"></textarea>
+                </div>
+                
+                <div class="flex items-center gap-2 bg-pink-50 p-2 rounded-lg border border-pink-200 cursor-pointer" onclick="document.getElementById('editShowModelInfo').click()">
+                    <input type="checkbox" id="editShowModelInfo" class="w-4 h-4 text-pink-600 rounded focus:ring-pink-500 cursor-pointer pointer-events-none">
+                    <label class="text-sm font-bold text-pink-800 cursor-pointer pointer-events-none">顯示「實穿參考」</label>
                 </div>
             </div>
             <div class="flex justify-end gap-3 mt-6">
-                <button onclick="document.getElementById('editModal').classList.add('hidden')" class="px-5 py-2 rounded-xl text-gray-600 bg-gray-100 hover:bg-gray-200 font-bold transition">取消</button>
-                <button onclick="saveEditProduct()" id="btnSaveEdit" class="px-5 py-2 rounded-xl bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition shadow-sm flex items-center gap-2"><i class="fa-solid fa-floppy-disk"></i> 儲存修改</button>
+                <button onclick="document.getElementById('editModal').classList.add('hidden')" class="px-5 py-2 rounded-xl text-gray-600 bg-gray-100 hover:bg-gray-200 font-bold transition active:scale-95">取消</button>
+                <button onclick="saveEditProduct()" id="btnSaveEdit" class="px-5 py-2 rounded-xl bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition shadow-sm flex items-center gap-2 active:scale-95"><i class="fa-solid fa-floppy-disk"></i> 儲存修改</button>
             </div>
         </div>
     </div>
@@ -180,14 +260,22 @@
                         <div id="customerHotTagsList" class="flex gap-2"></div>
                     </div>
 
-                    <!-- 🌟 動態分類篩選列 -->
+                    <!-- 動態分類篩選列 -->
                     <div class="flex overflow-x-auto hide-scrollbar gap-2 pb-2 mt-2 border-b border-gray-100" id="categoryFilterBar">
                         <!-- JS 動態生成 -->
+                    </div>
+
+                    <!-- 預購結單日篩選列 -->
+                    <div id="preorderDateFilterBarContainer" class="hidden mt-2 pb-2">
+                        <div class="text-xs font-bold text-red-500 mb-1 flex items-center gap-1"><i class="fa-regular fa-calendar-check"></i> 請選擇結單日看款</div>
+                        <div id="preorderDateFilterBar" class="flex overflow-x-auto hide-scrollbar gap-2">
+                            <!-- JS 動態生成 -->
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 滿額贈活動橫幅 (前台顯示區) -->
+            <!-- 滿額贈活動橫幅 -->
             <div id="customerPromoBanner" class="hidden mx-4 mt-4 mb-2 bg-gradient-to-br from-rose-50 to-pink-50 rounded-2xl p-4 shadow-sm border-2 border-rose-200">
                 <h3 id="displayPromoTitle" class="text-rose-600 font-bold text-lg text-center mb-1 flex items-center justify-center gap-2">
                     <i class="fa-solid fa-gift animate-bounce"></i> <span>滿額好禮大放送</span>
@@ -235,7 +323,6 @@
                     <div><label class="block text-sm font-bold text-gray-700 mb-1"><i class="fa-solid fa-bag-shopping text-orange-500"></i> 蝦皮賣場網址 (選填)</label><input type="text" id="inputShopeeLink" placeholder="https://shopee.tw/..." class="w-full border border-gray-300 rounded-xl p-3 outline-none focus:ring-2 focus:ring-indigo-500"></div>
                 </div>
                 
-                <!-- 🌟 搜尋與標籤顯示設定 -->
                 <div class="mt-5 pt-5 border-t border-gray-100">
                     <h4 class="font-bold text-gray-700 mb-3"><i class="fa-solid fa-magnifying-glass"></i> 前台搜尋區塊顯示設定</h4>
                     <div class="flex flex-col sm:flex-row gap-3 mb-4">
@@ -262,7 +349,7 @@
                 </button>
             </div>
 
-            <!-- 🌟 商品分類目錄管理 (後台區塊) -->
+            <!-- 商品分類目錄管理 -->
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
                 <h3 class="font-bold text-indigo-800 mb-2 flex items-center gap-2"><i class="fa-solid fa-folder-open"></i> 📂 商品分類目錄管理</h3>
                 <p class="text-xs text-gray-500 mb-4 font-bold bg-gray-50 p-3 rounded-lg border border-gray-200">
@@ -283,7 +370,7 @@
                 </button>
             </div>
 
-            <!-- 滿額贈活動設定 (後台區塊) -->
+            <!-- 滿額贈活動設定 -->
             <div class="bg-rose-50 rounded-2xl shadow-sm border border-rose-200 p-5">
                 <h3 class="font-bold text-rose-700 mb-4 flex items-center gap-2 text-lg"><i class="fa-solid fa-gift"></i> 🎁 滿額贈活動推播設定</h3>
                 
@@ -357,7 +444,7 @@
                             </div>
                         </div>
 
-                        <!-- 預購結單日 (隱藏/顯示，只要名稱有預購就會出現) -->
+                        <!-- 預購結單日 (隱藏/顯示) -->
                         <div id="preorderDateContainer" class="hidden">
                             <label class="block text-sm font-bold text-red-600 mb-1">📅 結單日期 (預購專區必填) <span class="text-red-500">*</span></label>
                             <input type="date" id="inputPreorderDate" class="w-full border border-red-300 bg-red-50 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-red-500 text-red-700 font-bold">
@@ -406,9 +493,6 @@
                                     <button type="button" onclick="addPhrase('🧺 挺版不易皺面料，洗完免熨燙，懶人必備神物！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">🧺 挺版免熨燙</button>
                                     <button type="button" onclick="addPhrase('🛡️ 高磅數純棉，質感超好、單穿也完全不透光！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">🛡️ 高磅數不透光</button>
                                     <button type="button" onclick="addPhrase('🌬️ 透氣排汗不黏膩，台灣的悶熱天氣穿剛剛好！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">🌬️ 透氣排汗不黏膩</button>
-                                    <button type="button" onclick="addPhrase('🧸 軟糯 Q 彈針織，像被擁抱一樣的舒服觸感！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">🧸 軟糯Q彈超舒服</button>
-                                    <button type="button" onclick="addPhrase('💎 微光澤綢緞面料，一穿上高級感直接拉滿！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">💎 微光澤高級感</button>
-                                    <button type="button" onclick="addPhrase('🧵 親膚抗起球處理，耐洗耐穿，CP 值超級高！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">🧵 抗起球超高CP值</button>
                                 </div>
                             </div>
                             
@@ -420,27 +504,7 @@
                                     <button type="button" onclick="addPhrase('🎀 超舒適寬版鬆緊腰，吃飽喝足也完全不勒肚！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">🎀 鬆緊腰不勒肚</button>
                                     <button type="button" onclick="addPhrase('📐 獨家訂製比例，高腰設計視覺秒變三七身大長腿！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">📐 高腰秒變大長腿</button>
                                     <button type="button" onclick="addPhrase('✨ 顯瘦 V 領設計，拉長脖子線條、超修飾臉型！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">✨ V領修飾臉型</button>
-                                    <button type="button" onclick="addPhrase('👗 垂墜感極佳，走起路來有風，自帶女神氣場！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">👗 垂墜感女神氣場</button>
-                                    <button type="button" onclick="addPhrase('🌸 微澎袖/落肩設計，完美修飾手臂掰掰肉！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">🌸 完美修飾掰掰肉</button>
-                                    <button type="button" onclick="addPhrase('📏 挺版立體剪裁，不挑身形，誰穿誰好看！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">📏 挺版剪裁不挑身形</button>
                                     <button type="button" onclick="addPhrase('👖 神神奇神褲版型，不顯臀寬，背面看也超修飾！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">👖 神褲版型不顯臀</button>
-                                    <button type="button" onclick="addPhrase('🌟 縮腰綁帶/抓皺設計，輕鬆拉出完美螞蟻腰！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">🌟 輕鬆拉出螞蟻腰</button>
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <div class="text-xs font-bold text-purple-600 mb-1">☕️ 風格與百搭性 (左右滑動看更多)</div>
-                                <div class="phrase-scroll flex gap-2">
-                                    <button type="button" onclick="addPhrase('☕️ 慵懶微甜風，日常出門倒垃圾、逛超商也好看！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">☕️ 慵懶微甜風</button>
-                                    <button type="button" onclick="addPhrase('🥂 氣質滿分神款，穿去約會、喝下午茶絕對被稱讚！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">🥂 約會氣質滿分</button>
-                                    <button type="button" onclick="addPhrase('💼 微正式知性風，上班通勤穿這件專業又好看！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">💼 上班通勤微正式</button>
-                                    <button type="button" onclick="addPhrase('👖 百搭不出錯，隨便搭件牛仔褲或西裝褲就完美！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">👖 隨便搭都好看</button>
-                                    <button type="button" onclick="addPhrase('🏖️ 渡假必備款，帶去海邊拍照絕對超級出片！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">🏖️ 渡假海邊超能拍</button>
-                                    <button type="button" onclick="addPhrase('👟 休閒感十足，搭雙小白鞋就能輕鬆出門！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">👟 搭小白鞋輕鬆出門</button>
-                                    <button type="button" onclick="addPhrase('🧥 疊穿神品，單穿好看、當內搭也超有層次！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">🧥 疊穿神品超有層次</button>
-                                    <button type="button" onclick="addPhrase('✨ 質感小姊姊風，套上一件就能輕鬆展現好品味！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">✨ 質感小姊姊風</button>
-                                    <button type="button" onclick="addPhrase('🖤 經典不敗款，不管過了幾年拿出來穿依然時髦！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">🖤 經典不敗超時髦</button>
-                                    <button type="button" onclick="addPhrase('🎀 兩穿設計/多種穿法，一件抵兩件，造型超百變！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">🎀 兩穿設計超百變</button>
                                 </div>
                             </div>
 
@@ -453,10 +517,6 @@
                                     <button type="button" onclick="addPhrase('💎 獨家訂製款，外面絕對找不到一模一樣的質感！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">💎 獨家訂製好質感</button>
                                     <button type="button" onclick="addPhrase('💯 買過都說讚的超高回購款，錯過絕對會搥心肝！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">💯 超高回購不買後悔</button>
                                     <button type="button" onclick="addPhrase('👑 本期鎮店之寶，客人看到實品幾乎直接打包！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">👑 鎮店之寶直接打包</button>
-                                    <button type="button" onclick="addPhrase('💸 超佛心甜甜價，這個材質賣這價格真的買到賺到！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">💸 佛心甜甜價買到賺到</button>
-                                    <button type="button" onclick="addPhrase('🎁 廠商獨家釋出微量現貨，要搶要快，手慢無喔！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">🎁 限量現貨手慢無</button>
-                                    <button type="button" onclick="addPhrase('✨ 質感好到沒話說，收到實品絕對會驚呼太超值！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">✨ 收到實品驚呼超值</button>
-                                    <button type="button" onclick="addPhrase('🏃‍♀️ 現貨數量真的個位數，看中請立刻截圖私訊保留！')" class="flex-shrink-0 bg-white border border-purple-200 text-gray-600 hover:text-purple-600 hover:border-purple-400 px-2 py-1 rounded text-xs transition whitespace-nowrap shadow-sm">🏃‍♀️ 數量剩個位數快截圖</button>
                                 </div>
                             </div>
 
@@ -528,7 +588,6 @@
         window.promoBase64ImagesArray = []; 
         window.draftProducts = []; 
         
-        // 初始化分類設定 (包含新增與隱藏邏輯)
         window.shopCategories = [
             { id: 'preorder', name: '⏰ 8/14 預購專區', isHidden: false },
             { id: 'top', name: '上衣', isHidden: false },
@@ -548,7 +607,6 @@
         window.currentFbLink = '';
         window.hasAutoScrolled = false;
 
-        // 🌟 判斷是否為預購分類 (只要名稱包含"預購"就是預購目錄)
         window.isPreorderCat = function(catId) {
             if (catId === 'all') return false;
             const cat = window.shopCategories.find(c => c.id === catId);
@@ -602,6 +660,7 @@
             }
         };
 
+        // 新增/編輯通用的 FitTag 切換邏輯
         window.toggleFitTag = function(btn) {
             btn.classList.toggle('active-fit-tag');
             if (btn.classList.contains('active-fit-tag')) {
@@ -611,8 +670,25 @@
             }
         };
 
+        window.toggleEditFitTag = function(btn) {
+            btn.classList.toggle('active-fit-tag');
+            if (btn.classList.contains('active-fit-tag')) {
+                btn.className = "edit-fit-tag bg-pink-50 text-pink-600 px-2 py-1 rounded text-xs font-bold border border-pink-300 transition active-fit-tag";
+            } else {
+                btn.className = "edit-fit-tag bg-gray-100 text-gray-500 px-2 py-1 rounded text-xs font-bold border transition";
+            }
+        };
+
+        // 短語加入邏輯
         window.addPhrase = function(text) {
             const descArea = document.getElementById('inputDesc');
+            if (descArea.value.trim() === '') { descArea.value = text; } else { descArea.value += '\n' + text; }
+            descArea.classList.add('ring-2', 'ring-purple-400', 'bg-purple-50');
+            setTimeout(() => descArea.classList.remove('ring-2', 'ring-purple-400', 'bg-purple-50'), 300);
+        };
+
+        window.addEditPhrase = function(text) {
+            const descArea = document.getElementById('editDesc');
             if (descArea.value.trim() === '') { descArea.value = text; } else { descArea.value += '\n' + text; }
             descArea.classList.add('ring-2', 'ring-purple-400', 'bg-purple-50');
             setTimeout(() => descArea.classList.remove('ring-2', 'ring-purple-400', 'bg-purple-50'), 300);
@@ -662,22 +738,43 @@
             } catch (err) { showToast("刪除失敗", "error"); }
         };
 
+        // 🌟 更新：同步渲染「新增商品」與「編輯商品」兩個區塊的自訂短語
         function renderCustomPhrases() {
             const box = document.getElementById('customPhraseBox');
             const list = document.getElementById('customPhraseList');
+            const editBox = document.getElementById('editCustomPhraseBox');
+            const editList = document.getElementById('editCustomPhraseList');
+            
             if(window.customPhrases && window.customPhrases.length > 0) {
                 box.classList.remove('hidden');
+                if(editBox) editBox.classList.remove('hidden');
+                
                 list.innerHTML = '';
+                if(editList) editList.innerHTML = '';
+                
                 window.customPhrases.forEach((phrase, idx) => {
                     const shortTitle = phrase.length > 10 ? phrase.substring(0, 10) + '...' : phrase;
+                    
                     list.innerHTML += `
                         <div class="relative inline-block group flex-shrink-0">
                             <button type="button" onclick="addPhrase('${phrase}')" class="bg-white border border-purple-400 text-purple-700 px-3 py-1 rounded text-xs font-bold transition whitespace-nowrap">${shortTitle}</button>
                             <button type="button" onclick="deleteCustomPhrase(${idx}, event)" class="absolute -top-1.5 -right-1.5 bg-gray-500 text-white w-4 h-4 rounded-full text-[10px] hidden group-hover:flex items-center justify-center">&times;</button>
                         </div>
                     `;
+                    
+                    if(editList) {
+                        editList.innerHTML += `
+                            <div class="relative inline-block group flex-shrink-0">
+                                <button type="button" onclick="addEditPhrase('${phrase}')" class="bg-white border border-purple-400 text-purple-700 px-3 py-1 rounded text-xs font-bold transition whitespace-nowrap">${shortTitle}</button>
+                                <button type="button" onclick="deleteCustomPhrase(${idx}, event)" class="absolute -top-1.5 -right-1.5 bg-gray-500 text-white w-4 h-4 rounded-full text-[10px] hidden group-hover:flex items-center justify-center">&times;</button>
+                            </div>
+                        `;
+                    }
                 });
-            } else { box.classList.add('hidden'); }
+            } else { 
+                box.classList.add('hidden'); 
+                if(editBox) editBox.classList.add('hidden'); 
+            }
         }
 
         function renderHotTags() {
@@ -707,7 +804,6 @@
             }
         }
 
-        // 渲染後台的「分類目錄管理」列表
         function renderCategoryManager() {
             const list = document.getElementById('adminCategoryList');
             if(!list) return;
@@ -731,7 +827,7 @@
                 `;
             });
             
-            updateAllCategoryUI(); // 同步更新前台與下拉選單
+            updateAllCategoryUI(); 
         }
 
         window.updateCategoryName = function(idx, newName) {
@@ -771,13 +867,11 @@
             } catch (err) { showToast("儲存失敗", "error"); }
         }
 
-        // 統一更新全站的分類 UI (下拉選單與前台按鈕)
         window.updateAllCategoryUI = function() {
             const addSelect = document.getElementById('inputCategory');
             const editSelect = document.getElementById('editCategory');
             const filterBar = document.getElementById('categoryFilterBar');
 
-            // 處理後台的下拉選單
             let optionsHtml = '';
             window.shopCategories.forEach(cat => {
                 const isPre = cat.name.includes('預購');
@@ -797,7 +891,6 @@
                 if(window.shopCategories.find(c => c.id === currentEditVal)) editSelect.value = currentEditVal;
             }
 
-            // 處理前台的分類按鈕
             if(filterBar) {
                 const allBtnClass = window.currentCategoryFilter === 'all'
                     ? "cat-btn bg-indigo-600 text-white px-4 py-1.5 rounded-full text-sm font-bold whitespace-nowrap shadow-sm transition"
@@ -806,7 +899,7 @@
                 let filterHtml = `<button onclick="setCategoryFilter('all')" class="${allBtnClass}">全部</button>`;
 
                 window.shopCategories.forEach(cat => {
-                    if (cat.isHidden) return; // 客人前台不顯示被隱藏的分類
+                    if (cat.isHidden) return; 
 
                     const isPre = cat.name.includes('預購');
                     let btnClass = "";
@@ -834,7 +927,6 @@
             }
         }, 3500);
 
-        // 讀取 Firebase 設定
         const settingsRef = doc(db, 'settings', 'shopInfo');
         onSnapshot(settingsRef, (docSnap) => {
             if (docSnap.exists()) {
@@ -842,9 +934,8 @@
                 
                 document.getElementById('customerShopName').innerText = '200%森衣好';
                 
-                // 🌟 前台搜尋區塊顯示控制
-                const showSearch = data.showSearch !== false; // 預設顯示
-                const showHotTags = data.showHotTags !== false; // 預設顯示
+                const showSearch = data.showSearch !== false; 
+                const showHotTags = data.showHotTags !== false; 
                 
                 if(document.getElementById('inputShowSearch')) document.getElementById('inputShowSearch').checked = showSearch;
                 if(document.getElementById('inputShowHotTags')) document.getElementById('inputShowHotTags').checked = showHotTags;
@@ -853,15 +944,13 @@
                 if (showSearch) searchContainer.classList.remove('hidden');
                 else searchContainer.classList.add('hidden');
                 
-                window.settingShowHotTags = showHotTags; // 讓 renderHotTags 可以讀取
+                window.settingShowHotTags = showHotTags; 
 
-                // 一般店鋪設定
                 if(document.getElementById('inputLineLink')) document.getElementById('inputLineLink').value = data.lineLink || '';
                 if(document.getElementById('inputIgLink')) document.getElementById('inputIgLink').value = data.igLink || '';
                 if(document.getElementById('inputFbLink')) document.getElementById('inputFbLink').value = data.fbLink || '';
                 if(document.getElementById('inputShopeeLink')) document.getElementById('inputShopeeLink').value = data.shopeeLink || '';
                 
-                // 滿額贈活動設定資料讀取
                 if(document.getElementById('inputPromoEnabled')) document.getElementById('inputPromoEnabled').checked = data.promoEnabled || false;
                 if(document.getElementById('inputPromoTitle')) document.getElementById('inputPromoTitle').value = data.promoTitle || '✨ 滿額好禮大放送 ✨';
                 if(document.getElementById('inputPromoRules')) document.getElementById('inputPromoRules').value = data.promoRules || '滿額3000好禮任選2\n滿額2000好禮任選1';
@@ -902,7 +991,6 @@
                 }
                 renderHotTags();
                 
-                // 讀取自訂分類目錄
                 if(data.categories && data.categories.length > 0) {
                     window.shopCategories = data.categories;
                 }
@@ -918,7 +1006,7 @@
                 if(data.lineLink) { iconLine.classList.remove('hidden'); } else { iconLine.classList.add('hidden'); }
                 if(data.fbLink) { iconFb.classList.remove('hidden'); } else { iconFb.classList.add('hidden'); }
             } else {
-                renderCategoryManager(); // 沒有資料也先初始化預設 UI
+                renderCategoryManager(); 
             }
         });
 
@@ -930,8 +1018,8 @@
                     igLink: document.getElementById('inputIgLink').value.trim(),
                     fbLink: document.getElementById('inputFbLink').value.trim(),
                     shopeeLink: document.getElementById('inputShopeeLink').value.trim(),
-                    showSearch: document.getElementById('inputShowSearch').checked, // 🌟 儲存開關
-                    showHotTags: document.getElementById('inputShowHotTags').checked // 🌟 儲存開關
+                    showSearch: document.getElementById('inputShowSearch').checked, 
+                    showHotTags: document.getElementById('inputShowHotTags').checked 
                 }, { merge: true });
                 showToast("✨ 店鋪設定已儲存！", "purple");
             } catch (err) { showToast(`儲存失敗`, "error"); }
@@ -1068,7 +1156,7 @@
             if (window.isPreorderCat(category) && !preorderDate) { showToast("預購專區請選擇結單日期！", "error"); return; }
 
             let selectedFitTags = [];
-            document.querySelectorAll('.active-fit-tag').forEach(btn => selectedFitTags.push(btn.innerText));
+            document.querySelectorAll('#fitTagsContainer .active-fit-tag').forEach(btn => selectedFitTags.push(btn.innerText));
 
             window.draftProducts.push({
                 imageUrls: [...window.base64ImagesArray],
@@ -1090,7 +1178,7 @@
             document.getElementById('inputMeasurements').value = '';
             document.getElementById('inputPreorderDate').value = '';
             document.getElementById('inputShowModelInfo').checked = false; 
-            document.querySelectorAll('.active-fit-tag').forEach(btn => window.toggleFitTag(btn)); 
+            document.querySelectorAll('#fitTagsContainer .active-fit-tag').forEach(btn => window.toggleFitTag(btn)); 
             window.base64ImagesArray = []; renderPreviewBox(); renderDrafts();
             showToast("✅ 已加入清單！", "purple");
         };
@@ -1145,6 +1233,7 @@
             if(confirm("確定要徹底刪除這件商品嗎？(建議可以使用隱藏功能)")) { await deleteDoc(doc(db, 'products', id)); showToast("已刪除"); }
         };
 
+        // 🌟 更新：開啟編輯視窗時，還原舊有的標籤狀態
         window.openEditModal = function(id) {
             const p = window.productsData.find(item => item.id === id);
             if(!p) return;
@@ -1162,15 +1251,32 @@
             document.getElementById('editMeasurements').value = p.measurements || '';
             document.getElementById('editDesc').value = p.rawText || '';
             document.getElementById('editShowModelInfo').checked = p.showModelInfo || false; 
+            
+            // 還原尺寸快選標籤狀態
+            const editFitTags = document.querySelectorAll('#editFitTagsContainer .edit-fit-tag');
+            editFitTags.forEach(btn => {
+                btn.classList.remove('active-fit-tag');
+                btn.className = "edit-fit-tag bg-gray-100 text-gray-500 px-2 py-1 rounded text-xs font-bold border transition";
+                if (p.fitTags && p.fitTags.includes(btn.innerText)) {
+                    btn.classList.add('active-fit-tag');
+                    btn.className = "edit-fit-tag bg-pink-50 text-pink-600 px-2 py-1 rounded text-xs font-bold border border-pink-300 transition active-fit-tag";
+                }
+            });
+
             document.getElementById('editModal').classList.remove('hidden');
         };
 
+        // 🌟 更新：儲存編輯商品時，一併收集編輯區的快選標籤
         window.saveEditProduct = async function() {
             const id = document.getElementById('editProdId').value;
             const category = document.getElementById('editCategory').value;
             const preorderDate = document.getElementById('editPreorderDate').value;
             
             if (window.isPreorderCat(category) && !preorderDate) { showToast("預購專區請選擇結單日期！", "error"); return; }
+
+            // 收集編輯區選取的標籤
+            let selectedFitTags = [];
+            document.querySelectorAll('#editFitTagsContainer .active-fit-tag').forEach(btn => selectedFitTags.push(btn.innerText));
 
             const btn = document.getElementById('btnSaveEdit');
             btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 儲存中...'; btn.disabled = true;
@@ -1181,6 +1287,7 @@
                     category: category,
                     preorderDate: window.isPreorderCat(category) ? preorderDate : '',
                     measurements: document.getElementById('editMeasurements').value,
+                    fitTags: selectedFitTags, // 存入新選的標籤
                     rawText: document.getElementById('editDesc').value,
                     showModelInfo: document.getElementById('editShowModelInfo').checked 
                 });
